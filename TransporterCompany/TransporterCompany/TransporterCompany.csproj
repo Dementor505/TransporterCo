@@ -103,7 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MainDataBase\" />
-    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\NoPhotoNew.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
