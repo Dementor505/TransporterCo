@@ -1,0 +1,31 @@
+﻿<Page x:Class="TransporterCompany.Pages.RegPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TransporterCompany.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1050"
+      Title="RegPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="АВТОРИЗАЦИЯ" FontSize="50" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,150,0,0"></TextBlock>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0">
+            <TextBlock FontSize="30" Text="Login" Margin="0,0,0,30" TextAlignment="Right"></TextBlock>
+            <TextBlock FontSize="30" Text="Password"></TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="10,10,0,0">
+            <TextBox Height="30" Width="300" Margin="0,0,0,40"></TextBox>
+            <TextBox Height="30" Width="300"></TextBox>
+        </StackPanel>
+        <RadioButton Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="330,200,0,0" Content="ЗАПОМНИ МЕНЯ ПОЖАЛУЙСТА" FontSize="20" VerticalContentAlignment="Center"></RadioButton>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,100" Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button x:Name="BackBtn" Width="200" Height="70" Content="ВЕРНУТЬСЯ" Margin="0,0,50,0"></Button>
+            <Button x:Name="NextBtn" Width="200" Height="70" Content="ВОЙТИ"></Button>
+        </StackPanel>
+    </Grid>
+</Page>

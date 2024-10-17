@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +64,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainDataBase\MainButtons.cs" />
+    <Compile Include="Pages\RolePages\ClientPage.xaml.cs">
+      <DependentUpon>ClientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\DirectorPage.xaml.cs">
+      <DependentUpon>DirectorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\EngineerPage.xaml.cs">
+      <DependentUpon>EngineerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\ManagerPage.xaml.cs">
+      <DependentUpon>ManagerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\MasterPage.xaml.cs">
+      <DependentUpon>MasterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\ExitAccountBtn.xaml.cs">
+      <DependentUpon>ExitAccountBtn.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,6 +90,96 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainDataBase\ActiveSession.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Address.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Component.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\ComponentProduct.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\ComponentType.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\CreatingProcess.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Document.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\ImageStockComponent.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\ImageStockMaterial.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\ImageStockUser.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Material.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\MaterialProduct.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\MaterialType.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Order.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Product.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\ProductPart.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Provider.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Role.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\SizeObject.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\SizeType.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Standart.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\sysdiagrams.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\TransporterBase.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TransporterBase.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\TransporterBase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\TransporterBase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TransporterBase.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\TypeWorkstation.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\User.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Workstation.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -71,10 +189,62 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\EnterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RegPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RolePages\ClientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RolePages\DirectorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RolePages\EngineerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RolePages\ManagerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RolePages\MasterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserButtons\ExitAccountBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EnterPage.xaml.cs">
+      <DependentUpon>EnterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RegPage.xaml.cs">
+      <DependentUpon>RegPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -93,6 +263,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="MainDataBase\TransporterBase.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TransporterBase.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="MainDataBase\TransporterBase.edmx.diagram">
+      <DependentUpon>TransporterBase.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -101,11 +279,33 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MainDataBase\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\NoPhotoNew.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo_Color_Transparent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MainDataBase\TransporterBase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TransporterBase.Context.cs</LastGenOutput>
+      <DependentUpon>TransporterBase.edmx</DependentUpon>
+    </Content>
+    <Content Include="MainDataBase\TransporterBase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TransporterBase.edmx</DependentUpon>
+      <LastGenOutput>TransporterBase.cs</LastGenOutput>
+    </Content>
+    <Resource Include="Resources\NormalBtn.png" />
+    <Resource Include="Resources\SkullBtn.png" />
+    <Resource Include="Resources\LogoutBtn.png" />
+    <Resource Include="Resources\NextBtn.png" />
+    <Resource Include="Resources\PeopleBtn.png" />
+    <Resource Include="Resources\SettingsBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

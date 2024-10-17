@@ -12,19 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TransporterCompany.Pages;
 
-namespace TransporterCompany
+namespace TransporterCompany.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для ProfilePage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ProfilePage : Page
     {
-        public MainWindow()
+        public ProfilePage()
         {
             InitializeComponent();
-            MainFrame.Navigate(new StartPage());
+            App.mainButtons.RefreshButtons(1);
         }
     }
 }

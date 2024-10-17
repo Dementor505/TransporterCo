@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TransporterCompany.MainDataBase;
 
 namespace TransporterCompany.Pages
 {
@@ -23,6 +24,36 @@ namespace TransporterCompany.Pages
         public AuthPage()
         {
             InitializeComponent();
+            App.mainButtons.ClearWrapPanel();
+        }
+
+        private void NextBtn_Click(object sender, RoutedEventArgs e)
+        {
+            User user = App.transBase.User.FirstOrDefault(x => x.Login == LoginTb.Text && x.Password == PasswordPb.Password);
+            if (user != null)
+            {
+                if (RemMe.IsChecked == true)
+                {
+                    ActiveSession session = new ActiveSession
+                    {
+                        Login_User = user.Login,
+                        Computer_Number = 1
+                    };
+                    App.transBase.ActiveSession.Add(session);
+                    App.transBase.SaveChanges();
+                }
+                App.loggedUser = user;
+                App.menuFrame.Navigate(new ProfilePage());
+            }
+            else
+            {
+                MessageBox.Show("Вы ввели что-то неправильно","Ты наложал",MessageBoxButton.OK,MessageBoxImage.Warning);
+            }
+        }
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            App.menuFrame.Navigate(new EnterPage());
         }
     }
 }

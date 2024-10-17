@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using TransporterCompany.MainDataBase;
 
 namespace TransporterCompany
 {
@@ -13,5 +15,9 @@ namespace TransporterCompany
     /// </summary>
     public partial class App : Application
     {
+        public static Frame menuFrame;
+        public static TransporterBaseEntities transBase = new TransporterBaseEntities();
+        public static User loggedUser;
+        public static MainButtons mainButtons;
     }
 }

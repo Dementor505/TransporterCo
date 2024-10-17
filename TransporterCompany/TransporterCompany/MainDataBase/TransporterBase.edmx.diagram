@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1b0b40d3658b459aaabc6aeaad54b800" Name="Diagram1">
+        <EntityTypeShape EntityType="TransporterBaseModel.ActiveSession" Width="1.5" PointX="6" PointY="36" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Address" Width="1.5" PointX="1.5" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Component" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.ComponentProduct" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.ComponentType" Width="1.5" PointX="1.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.CreatingProcess" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Document" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.ImageStockComponent" Width="1.5" PointX="1.5" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.ImageStockMaterial" Width="1.5" PointX="1.5" PointY="47.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.ImageStockUser" Width="1.5" PointX="1.5" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Material" Width="1.5" PointX="0.75" PointY="41.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.MaterialProduct" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.MaterialType" Width="1.5" PointX="1.5" PointY="49.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Order" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Product" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.ProductPart" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Provider" Width="1.5" PointX="1.5" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Role" Width="1.5" PointX="1.5" PointY="37.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.SizeObject" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.SizeType" Width="1.5" PointX="3.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Standart" Width="1.5" PointX="1.5" PointY="52.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.sysdiagrams" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.TypeWorkstation" Width="1.5" PointX="1.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.User" Width="1.5" PointX="3.75" PointY="35" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransporterBaseModel.Workstation" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="TransporterBaseModel.FK_ActiveSession_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Provider_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Component_ComponentType" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Component_ImageStockComponent" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Component_Provider" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_ComponentProduct_Component" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_ComponentProduct_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_CreatingProcess_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_CreatingProcess_Workstation" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Document_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Material_ImageStockMaterial" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_User_ImageStockUser" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Material_MaterialType" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Material_SizeType" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Material_Standart" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_MaterialProduct_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_MaterialProduct_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Order_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Order_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_ProductPart_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_ProductPart_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_SizeObject_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_SizeObject_SizeType" ManuallyRouted="false" />
+        <AssociationConnector Association="TransporterBaseModel.FK_Workstation_TypeWorkstation" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

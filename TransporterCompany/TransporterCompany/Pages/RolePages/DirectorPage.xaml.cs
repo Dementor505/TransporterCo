@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TransporterCompany.Pages;
 
-namespace TransporterCompany
+namespace TransporterCompany.Pages.RolePages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для DirectorPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DirectorPage : Page
     {
-        public MainWindow()
+        public DirectorPage()
         {
             InitializeComponent();
-            MainFrame.Navigate(new StartPage());
         }
     }
 }
