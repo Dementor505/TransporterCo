@@ -34,7 +34,7 @@
             </Frame>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <WrapPanel x:Name="mainWrapPanel">
+            <WrapPanel x:Name="mainWrapPanel" Width="250">
                 
             </WrapPanel>
         </StackPanel>

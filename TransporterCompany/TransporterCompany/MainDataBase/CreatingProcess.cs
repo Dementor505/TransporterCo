@@ -14,6 +14,12 @@ namespace TransporterCompany.MainDataBase
     
     public partial class CreatingProcess
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CreatingProcess()
+        {
+            this.WorkerProcess = new HashSet<WorkerProcess>();
+        }
+    
         public int Number_Process { get; set; }
         public int Id_Product { get; set; }
         public string Process_Name { get; set; }
@@ -21,5 +27,7 @@ namespace TransporterCompany.MainDataBase
     
         public virtual Product Product { get; set; }
         public virtual Workstation Workstation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkerProcess> WorkerProcess { get; set; }
     }
 }

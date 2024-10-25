@@ -12,21 +12,22 @@ namespace TransporterCompany.MainDataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Workstation
+    public partial class Worker
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Workstation()
+        public Worker()
         {
-            this.CreatingProcess = new HashSet<CreatingProcess>();
+            this.WorkerProcess = new HashSet<WorkerProcess>();
         }
     
-        public int Id_Workstation { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> Id_TypeWorkstation { get; set; }
-        public string Name__Workstation { get; set; }
+        public string Login { get; set; }
+        public Nullable<System.DateTime> DateBorn { get; set; }
+        public Nullable<int> Id_Address { get; set; }
+        public string Education { get; set; }
     
+        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CreatingProcess> CreatingProcess { get; set; }
-        public virtual TypeWorkstation TypeWorkstation { get; set; }
+        public virtual ICollection<WorkerProcess> WorkerProcess { get; set; }
+        public virtual User User { get; set; }
     }
 }

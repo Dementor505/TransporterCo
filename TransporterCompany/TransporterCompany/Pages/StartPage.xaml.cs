@@ -35,6 +35,7 @@ namespace TransporterCompany.Pages
                 ActiveSession user = CheckSessions();
                 App.loggedUser = App.transBase.User.Where(x => x.Login == user.Login_User).FirstOrDefault();
                 App.menuFrame.Navigate(new ProfilePage());
+                App.mainButtons.RefreshButtons(App.loggedUser.Id_Role);
             }
             else
             {
@@ -44,7 +45,7 @@ namespace TransporterCompany.Pages
         public ActiveSession CheckSessions()
         {
             ActiveSession session = App.transBase.ActiveSession.FirstOrDefault(x => x.Computer_Number == 1 && x.Login_User != null);
-            if(session != null) return session;
+            if (session != null) return session;
             return null;
         }
     }

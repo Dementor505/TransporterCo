@@ -36,5 +36,6 @@ namespace TransporterCompany.MainDataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order1 { get; set; }
         public virtual Role Role { get; set; }
+        public virtual Worker Worker { get; set; }
     }
 }

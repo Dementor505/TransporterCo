@@ -1,0 +1,24 @@
+﻿<Window x:Class="TransporterCompany.Windows.SkillsInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TransporterCompany.Windows"
+        mc:Ignorable="d"
+        Title="SkillsInfo" Height="400" Width="300" WindowStyle="None">
+    <Grid>
+        <ListView x:Name="mainListView">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="НЕОБХОДИМЫЕ УМЕНИЯ" Width="300">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Process_Name}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

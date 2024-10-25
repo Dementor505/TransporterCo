@@ -10,9 +10,9 @@ namespace TransporterCompany.MainDataBase
 {
     public class MainButtons
     {
-        UserControl[] simpleUser = new UserControl[] { new ExitAccountBtn() };
-        UserControl[] directorUser = new UserControl[] { new ExitAccountBtn() };
-        UserControl[] workerUser = new UserControl[] { new ExitAccountBtn() };
+        UserControl[] simpleUser = new UserControl[] { new ExitAccountBtn(), new ProfileBtn()};
+        UserControl[] directorUser = new UserControl[] { new ExitAccountBtn(), new ProfileBtn(), new WorkerBtn()};
+        UserControl[] workerUser = new UserControl[] { new ExitAccountBtn(), new ProfileBtn() };
 
         public WrapPanel mainWrapPanel;
 

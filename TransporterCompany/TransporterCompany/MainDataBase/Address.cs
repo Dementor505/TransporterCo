@@ -18,6 +18,7 @@ namespace TransporterCompany.MainDataBase
         public Address()
         {
             this.Provider = new HashSet<Provider>();
+            this.Worker = new HashSet<Worker>();
         }
     
         public int Id_Address { get; set; }
@@ -27,5 +28,7 @@ namespace TransporterCompany.MainDataBase
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Provider> Provider { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Worker> Worker { get; set; }
     }
 }

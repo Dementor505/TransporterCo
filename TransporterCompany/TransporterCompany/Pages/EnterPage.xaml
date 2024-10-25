@@ -15,8 +15,18 @@
             <Run Text="ЧТО ТЕБЕ ДЕЙСТВИТЕЛЬНО НУЖНО"></Run>
         </TextBlock>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,150" Orientation="Horizontal">
-            <Button x:Name="AuthBtn" Width="200" Height="70" Content="АВТОРИЗАЦИЯ" Margin="0,0,50,0" Click="AuthBtn_Click"></Button>
-            <Button x:Name="RegBtn" Width="200" Height="70" Content="РЕГИСТРАЦИЯ" Click="RegBtn_Click"></Button>
+            <Button x:Name="AuthBtn" Width="260" Height="180" Margin="0,0,50,0" Click="AuthBtn_Click" Background="Transparent" BorderThickness="0">
+                <Grid>
+                    <Image Source="/Resources/NormalBtn.png"></Image>
+                    <TextBlock Text = "АВТОРИЗАЦИЯ" FontSize="30" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,25,0,0"></TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="RegBtn" Width="260" Height="180" Click="RegBtn_Click" Background="Transparent" BorderThickness="0">
+                <Grid>
+                    <Image Source="/Resources/NormalBtn.png"></Image>
+                    <TextBlock Text = "РЕГИСТРАЦИЯ" FontSize="30" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,25,0,0"></TextBlock>
+                </Grid>
+            </Button>
         </StackPanel>
     </Grid>
 </Page>

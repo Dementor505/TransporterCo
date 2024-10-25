@@ -43,6 +43,7 @@ namespace TransporterCompany.Pages
                     App.transBase.SaveChanges();
                 }
                 App.loggedUser = user;
+                App.mainButtons.RefreshButtons(App.loggedUser.Id_Role);
                 App.menuFrame.Navigate(new ProfilePage());
             }
             else

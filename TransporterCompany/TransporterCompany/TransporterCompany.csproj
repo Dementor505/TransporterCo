@@ -64,33 +64,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MainDataBase\MainButtons.cs" />
-    <Compile Include="Pages\RolePages\ClientPage.xaml.cs">
-      <DependentUpon>ClientPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\RolePages\DirectorPage.xaml.cs">
-      <DependentUpon>DirectorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\RolePages\EngineerPage.xaml.cs">
-      <DependentUpon>EngineerPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\RolePages\ManagerPage.xaml.cs">
-      <DependentUpon>ManagerPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\RolePages\MasterPage.xaml.cs">
-      <DependentUpon>MasterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserButtons\ExitAccountBtn.xaml.cs">
-      <DependentUpon>ExitAccountBtn.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MainDataBase\ActiveSession.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
@@ -121,6 +94,7 @@
     <Compile Include="MainDataBase\ImageStockUser.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
+    <Compile Include="MainDataBase\MainButtons.cs" />
     <Compile Include="MainDataBase\Material.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
@@ -178,13 +152,77 @@
     <Compile Include="MainDataBase\User.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
+    <Compile Include="MainDataBase\Worker.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\WorkerProcess.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
     <Compile Include="MainDataBase\Workstation.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\WorkerControl.xaml.cs">
+      <DependentUpon>WorkerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddEditWorker.xaml.cs">
+      <DependentUpon>AddEditWorker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\ClientPage.xaml.cs">
+      <DependentUpon>ClientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\DirectorPage.xaml.cs">
+      <DependentUpon>DirectorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\EngineerPage.xaml.cs">
+      <DependentUpon>EngineerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\ManagerPage.xaml.cs">
+      <DependentUpon>ManagerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RolePages\MasterPage.xaml.cs">
+      <DependentUpon>MasterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WorkerPage.xaml.cs">
+      <DependentUpon>WorkerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\ExitAccountBtn.xaml.cs">
+      <DependentUpon>ExitAccountBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\ProfileBtn.xaml.cs">
+      <DependentUpon>ProfileBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\WorkerBtn.xaml.cs">
+      <DependentUpon>WorkerBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ChoiseWorker.xaml.cs">
+      <DependentUpon>ChoiseWorker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SkillsInfo.xaml.cs">
+      <DependentUpon>SkillsInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WorkerRegistration.xaml.cs">
+      <DependentUpon>WorkerRegistration.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainUserControls\WorkerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AddEditWorker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,7 +263,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\WorkerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserButtons\ExitAccountBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserButtons\ProfileBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserButtons\WorkerBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ChoiseWorker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SkillsInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WorkerRegistration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -279,7 +341,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\NoPhotoNew.png" />
   </ItemGroup>
@@ -287,16 +348,6 @@
     <Resource Include="Resources\Logo_Color_Transparent.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MainDataBase\TransporterBase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TransporterBase.Context.cs</LastGenOutput>
-      <DependentUpon>TransporterBase.edmx</DependentUpon>
-    </Content>
-    <Content Include="MainDataBase\TransporterBase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TransporterBase.edmx</DependentUpon>
-      <LastGenOutput>TransporterBase.cs</LastGenOutput>
-    </Content>
     <Resource Include="Resources\NormalBtn.png" />
     <Resource Include="Resources\SkullBtn.png" />
     <Resource Include="Resources\LogoutBtn.png" />
@@ -307,5 +358,19 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="MainDataBase\TransporterBase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TransporterBase.edmx</DependentUpon>
+      <LastGenOutput>TransporterBase.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MainDataBase\TransporterBase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TransporterBase.edmx</DependentUpon>
+      <LastGenOutput>TransporterBase.cs</LastGenOutput>
+    </Content>
+    <Resource Include="Resources\PlusBtn.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

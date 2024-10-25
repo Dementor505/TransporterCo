@@ -16,7 +16,7 @@
           <Key>
             <PropertyRef Name="Id_Address" />
           </Key>
-          <Property Name="Id_Address" Type="int" Nullable="false" />
+          <Property Name="Id_Address" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="Street" Type="nvarchar" MaxLength="50" />
           <Property Name="HouseNumber" Type="nvarchar" MaxLength="50" />
@@ -53,8 +53,6 @@
         </EntityType>
         <EntityType Name="CreatingProcess">
           <Key>
-            <PropertyRef Name="Number_Process" />
-            <PropertyRef Name="Id_Product" />
             <PropertyRef Name="Process_Name" />
           </Key>
           <Property Name="Number_Process" Type="int" Nullable="false" />
@@ -91,7 +89,7 @@
           <Key>
             <PropertyRef Name="Id_Image" />
           </Key>
-          <Property Name="Id_Image" Type="int" Nullable="false" />
+          <Property Name="Id_Image" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name_Image" Type="nvarchar" MaxLength="50" />
           <Property Name="ImageSource" Type="varbinary(max)" />
         </EntityType>
@@ -225,6 +223,23 @@
           <Property Name="Id_Role" Type="int" Nullable="false" />
           <Property Name="Id_Image" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateBorn" Type="date" />
+          <Property Name="Id_Address" Type="int" />
+          <Property Name="Education" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WorkerProcess">
+          <Key>
+            <PropertyRef Name="Id_WorkProc" />
+          </Key>
+          <Property Name="Id_WorkProc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login_Worker" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name_Process" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Workstation">
           <Key>
             <PropertyRef Name="Id_Workstation" />
@@ -232,6 +247,7 @@
           <Property Name="Id_Workstation" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="300" />
           <Property Name="Id_TypeWorkstation" Type="int" />
+          <Property Name="Name__Workstation" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_ActiveSession_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
@@ -521,7 +537,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Role">
+        <Association Name="FK_User_Role1">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -529,7 +545,59 @@
               <PropertyRef Name="Id_Role" />
             </Principal>
             <Dependent Role="User">
-              <PropertyRef Name="Id_Image" />
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id_Address" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="Id_Address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkerProcess_CreatingProcess">
+          <End Role="CreatingProcess" Type="Self.CreatingProcess" Multiplicity="1" />
+          <End Role="WorkerProcess" Type="Self.WorkerProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreatingProcess">
+              <PropertyRef Name="Process_Name" />
+            </Principal>
+            <Dependent Role="WorkerProcess">
+              <PropertyRef Name="Name_Process" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkerProcess_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WorkerProcess" Type="Self.WorkerProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="WorkerProcess">
+              <PropertyRef Name="Login_Worker" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -570,6 +638,8 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeWorkstation" EntityType="Self.TypeWorkstation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkerProcess" EntityType="Self.WorkerProcess" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Workstation" EntityType="Self.Workstation" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ActiveSession_User" Association="Self.FK_ActiveSession_User">
             <End Role="User" EntitySet="User" />
@@ -667,9 +737,25 @@
             <End Role="ImageStockUser" EntitySet="ImageStockUser" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+          <AssociationSet Name="FK_User_Role1" Association="Self.FK_User_Role1">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Address" Association="Self.FK_Worker_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_User" Association="Self.FK_Worker_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkerProcess_CreatingProcess" Association="Self.FK_WorkerProcess_CreatingProcess">
+            <End Role="CreatingProcess" EntitySet="CreatingProcess" />
+            <End Role="WorkerProcess" EntitySet="WorkerProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkerProcess_Worker" Association="Self.FK_WorkerProcess_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="WorkerProcess" EntitySet="WorkerProcess" />
           </AssociationSet>
           <AssociationSet Name="FK_Workstation_TypeWorkstation" Association="Self.FK_Workstation_TypeWorkstation">
             <End Role="TypeWorkstation" EntitySet="TypeWorkstation" />
@@ -685,18 +771,19 @@
             <PropertyRef Name="Login_User" />
           </Key>
           <Property Name="Login_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_ActiveSession_User" FromRole="ActiveSession" ToRole="User" />
           <Property Name="Computer_Number" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="TransporterBaseModel.FK_ActiveSession_User" FromRole="ActiveSession" ToRole="User" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id_Address" />
           </Key>
-          <Property Name="Id_Address" Type="Int32" Nullable="false" />
+          <Property Name="Id_Address" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HouseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Provider" Relationship="Self.FK_Provider_Address" FromRole="Address" ToRole="Provider" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Address" FromRole="Address" ToRole="Worker" />
         </EntityType>
         <EntityType Name="Component">
           <Key>
@@ -737,8 +824,6 @@
         </EntityType>
         <EntityType Name="CreatingProcess">
           <Key>
-            <PropertyRef Name="Number_Process" />
-            <PropertyRef Name="Id_Product" />
             <PropertyRef Name="Process_Name" />
           </Key>
           <Property Name="Number_Process" Type="Int32" Nullable="false" />
@@ -747,6 +832,7 @@
           <Property Name="Id_Workstation" Type="Int32" />
           <NavigationProperty Name="Product" Relationship="Self.FK_CreatingProcess_Product" FromRole="CreatingProcess" ToRole="Product" />
           <NavigationProperty Name="Workstation" Relationship="Self.FK_CreatingProcess_Workstation" FromRole="CreatingProcess" ToRole="Workstation" />
+          <NavigationProperty Name="WorkerProcess" Relationship="Self.FK_WorkerProcess_CreatingProcess" FromRole="CreatingProcess" ToRole="WorkerProcess" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -775,15 +861,6 @@
           <Property Name="Name_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ImageSource" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Material" Relationship="Self.FK_Material_ImageStockMaterial" FromRole="ImageStockMaterial" ToRole="Material" />
-        </EntityType>
-        <EntityType Name="ImageStockUser">
-          <Key>
-            <PropertyRef Name="Id_Image" />
-          </Key>
-          <Property Name="Id_Image" Type="Int32" Nullable="false" />
-          <Property Name="Name_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ImageSource" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_ImageStockUser" FromRole="ImageStockUser" ToRole="User" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
@@ -839,9 +916,9 @@
           <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="Document" Relationship="Self.FK_Document_Order" FromRole="Order" ToRole="Document" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Order_Product" FromRole="Order" ToRole="Product" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="Self.FK_Order_User1" FromRole="Order" ToRole="User" />
-        </EntityType>
+          <NavigationProperty Name="User" Relationship="TransporterBaseModel.FK_Order_User" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="TransporterBaseModel.FK_Order_User1" FromRole="Order" ToRole="User" />
+          </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id_Product" />
@@ -883,7 +960,7 @@
           </Key>
           <Property Name="Id_Role" Type="Int32" Nullable="false" />
           <Property Name="Name_Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="TransporterBaseModel.FK_User_Role1" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="SizeObject">
           <Key>
@@ -933,22 +1010,27 @@
           <Property Name="Name_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Workstation" Relationship="Self.FK_Workstation_TypeWorkstation" FromRole="TypeWorkstation" ToRole="Workstation" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Worker">
           <Key>
             <PropertyRef Name="Login" />
           </Key>
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Id_Role" Type="Int32" Nullable="false" />
-          <Property Name="Id_Image" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ActiveSession" Relationship="Self.FK_ActiveSession_User" FromRole="User" ToRole="ActiveSession" />
-          <NavigationProperty Name="ImageStockUser" Relationship="Self.FK_User_ImageStockUser" FromRole="User" ToRole="ImageStockUser" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
-          <NavigationProperty Name="Order1" Relationship="Self.FK_Order_User1" FromRole="User" ToRole="Order" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <Property Name="DateBorn" Type="DateTime" Precision="0" />
+          <Property Name="Id_Address" Type="Int32" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_Worker_Address" FromRole="Worker" ToRole="Address" />
+          <NavigationProperty Name="WorkerProcess" Relationship="Self.FK_WorkerProcess_Worker" FromRole="Worker" ToRole="WorkerProcess" />
+          <NavigationProperty Name="User" Relationship="TransporterBaseModel.FK_Worker_User" FromRole="Worker" ToRole="User" />
+        </EntityType>
+        <EntityType Name="WorkerProcess">
+          <Key>
+            <PropertyRef Name="Id_WorkProc" />
+          </Key>
+          <Property Name="Id_WorkProc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login_Worker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name_Process" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CreatingProcess" Relationship="Self.FK_WorkerProcess_CreatingProcess" FromRole="WorkerProcess" ToRole="CreatingProcess" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_WorkerProcess_Worker" FromRole="WorkerProcess" ToRole="Worker" />
         </EntityType>
         <EntityType Name="Workstation">
           <Key>
@@ -957,21 +1039,10 @@
           <Property Name="Id_Workstation" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Id_TypeWorkstation" Type="Int32" />
+          <Property Name="Name__Workstation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CreatingProcess" Relationship="Self.FK_CreatingProcess_Workstation" FromRole="Workstation" ToRole="CreatingProcess" />
           <NavigationProperty Name="TypeWorkstation" Relationship="Self.FK_Workstation_TypeWorkstation" FromRole="Workstation" ToRole="TypeWorkstation" />
         </EntityType>
-        <Association Name="FK_ActiveSession_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ActiveSession" Type="Self.ActiveSession" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Login" />
-            </Principal>
-            <Dependent Role="ActiveSession">
-              <PropertyRef Name="Login_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Provider_Address">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Provider" Type="Self.Provider" Multiplicity="*" />
@@ -980,6 +1051,18 @@
               <PropertyRef Name="Id_Address" />
             </Principal>
             <Dependent Role="Provider">
+              <PropertyRef Name="Id_Address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id_Address" />
+            </Principal>
+            <Dependent Role="Worker">
               <PropertyRef Name="Id_Address" />
             </Dependent>
           </ReferentialConstraint>
@@ -1068,6 +1151,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WorkerProcess_CreatingProcess">
+          <End Role="CreatingProcess" Type="Self.CreatingProcess" Multiplicity="1" />
+          <End Role="WorkerProcess" Type="Self.WorkerProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreatingProcess">
+              <PropertyRef Name="Process_Name" />
+            </Principal>
+            <Dependent Role="WorkerProcess">
+              <PropertyRef Name="Name_Process" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Document_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="Document" Type="Self.Document" Multiplicity="*" />
@@ -1089,18 +1184,6 @@
             </Principal>
             <Dependent Role="Material">
               <PropertyRef Name="Id_Image" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_ImageStockUser">
-          <End Role="ImageStockUser" Type="Self.ImageStockUser" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImageStockUser">
-              <PropertyRef Name="Id_Image" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="Id_Role" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1176,30 +1259,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Order_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Login" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Id_Client" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_User1">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Login" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Id_Manager" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductPart_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProductPart" Type="Self.ProductPart" Multiplicity="*" />
@@ -1236,18 +1295,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id_Role" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="Id_Image" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SizeObject_SizeType">
           <End Role="SizeType" Type="Self.SizeType" Multiplicity="0..1" />
           <End Role="SizeObject" Type="Self.SizeObject" Multiplicity="*" />
@@ -1272,7 +1319,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TransporterBaseEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_WorkerProcess_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="WorkerProcess" Type="Self.WorkerProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="WorkerProcess">
+              <PropertyRef Name="Login_Worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TransporterBaseEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ActiveSession" EntityType="Self.ActiveSession" />
           <EntitySet Name="Address" EntityType="Self.Address" />
           <EntitySet Name="Component" EntityType="Self.Component" />
@@ -1282,7 +1341,6 @@
           <EntitySet Name="Document" EntityType="Self.Document" />
           <EntitySet Name="ImageStockComponent" EntityType="Self.ImageStockComponent" />
           <EntitySet Name="ImageStockMaterial" EntityType="Self.ImageStockMaterial" />
-          <EntitySet Name="ImageStockUser" EntityType="Self.ImageStockUser" />
           <EntitySet Name="Material" EntityType="Self.Material" />
           <EntitySet Name="MaterialProduct" EntityType="Self.MaterialProduct" />
           <EntitySet Name="MaterialType" EntityType="Self.MaterialType" />
@@ -1296,15 +1354,16 @@
           <EntitySet Name="Standart" EntityType="Self.Standart" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TypeWorkstation" EntityType="Self.TypeWorkstation" />
-          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <EntitySet Name="WorkerProcess" EntityType="Self.WorkerProcess" />
           <EntitySet Name="Workstation" EntityType="Self.Workstation" />
-          <AssociationSet Name="FK_ActiveSession_User" Association="Self.FK_ActiveSession_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ActiveSession" EntitySet="ActiveSession" />
-          </AssociationSet>
           <AssociationSet Name="FK_Provider_Address" Association="Self.FK_Provider_Address">
             <End Role="Address" EntitySet="Address" />
             <End Role="Provider" EntitySet="Provider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Address" Association="Self.FK_Worker_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Worker" EntitySet="Worker" />
           </AssociationSet>
           <AssociationSet Name="FK_Component_ComponentType" Association="Self.FK_Component_ComponentType">
             <End Role="ComponentType" EntitySet="ComponentType" />
@@ -1334,6 +1393,10 @@
             <End Role="Workstation" EntitySet="Workstation" />
             <End Role="CreatingProcess" EntitySet="CreatingProcess" />
           </AssociationSet>
+          <AssociationSet Name="FK_WorkerProcess_CreatingProcess" Association="Self.FK_WorkerProcess_CreatingProcess">
+            <End Role="CreatingProcess" EntitySet="CreatingProcess" />
+            <End Role="WorkerProcess" EntitySet="WorkerProcess" />
+          </AssociationSet>
           <AssociationSet Name="FK_Document_Order" Association="Self.FK_Document_Order">
             <End Role="Order" EntitySet="Order" />
             <End Role="Document" EntitySet="Document" />
@@ -1341,10 +1404,6 @@
           <AssociationSet Name="FK_Material_ImageStockMaterial" Association="Self.FK_Material_ImageStockMaterial">
             <End Role="ImageStockMaterial" EntitySet="ImageStockMaterial" />
             <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_ImageStockUser" Association="Self.FK_User_ImageStockUser">
-            <End Role="ImageStockUser" EntitySet="ImageStockUser" />
-            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_Material_MaterialType" Association="Self.FK_Material_MaterialType">
             <End Role="MaterialType" EntitySet="MaterialType" />
@@ -1370,14 +1429,6 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_User1" Association="Self.FK_Order_User1">
-            <End Role="User" EntitySet="User" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductPart_Product" Association="Self.FK_ProductPart_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductPart" EntitySet="ProductPart" />
@@ -1390,10 +1441,6 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="SizeObject" EntitySet="SizeObject" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
           <AssociationSet Name="FK_SizeObject_SizeType" Association="Self.FK_SizeObject_SizeType">
             <End Role="SizeType" EntitySet="SizeType" />
             <End Role="SizeObject" EntitySet="SizeObject" />
@@ -1402,18 +1449,149 @@
             <End Role="TypeWorkstation" EntitySet="TypeWorkstation" />
             <End Role="Workstation" EntitySet="Workstation" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <AssociationSet Name="FK_WorkerProcess_Worker" Association="Self.FK_WorkerProcess_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="WorkerProcess" EntitySet="WorkerProcess" />
+          </AssociationSet>
+          <EntitySet Name="ImageStockUser" EntityType="TransporterBaseModel.ImageStockUser" />
+          <EntitySet Name="User" EntityType="TransporterBaseModel.User" />
+          <AssociationSet Name="FK_ActiveSession_User" Association="TransporterBaseModel.FK_ActiveSession_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ActiveSession" EntitySet="ActiveSession" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_ImageStockUser" Association="TransporterBaseModel.FK_User_ImageStockUser">
+            <End Role="ImageStockUser" EntitySet="ImageStockUser" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="TransporterBaseModel.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User1" Association="TransporterBaseModel.FK_Order_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role1" Association="TransporterBaseModel.FK_User_Role1">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_User" Association="TransporterBaseModel.FK_Worker_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="ImageStockUser">
+          <Key>
+            <PropertyRef Name="Id_Image" />
+          </Key>
+          <Property Name="Id_Image" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSource" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="TransporterBaseModel.FK_User_ImageStockUser" FromRole="ImageStockUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Role" Type="Int32" Nullable="false" />
+          <Property Name="Id_Image" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ActiveSession" Relationship="TransporterBaseModel.FK_ActiveSession_User" FromRole="User" ToRole="ActiveSession" />
+          <NavigationProperty Name="ImageStockUser" Relationship="TransporterBaseModel.FK_User_ImageStockUser" FromRole="User" ToRole="ImageStockUser" />
+          <NavigationProperty Name="Order" Relationship="TransporterBaseModel.FK_Order_User" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Order1" Relationship="TransporterBaseModel.FK_Order_User1" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Role" Relationship="TransporterBaseModel.FK_User_Role1" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Worker" Relationship="TransporterBaseModel.FK_Worker_User" FromRole="User" ToRole="Worker" />
+        </EntityType>
+        <Association Name="FK_ActiveSession_User">
+          <End Type="TransporterBaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="TransporterBaseModel.ActiveSession" Role="ActiveSession" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="ActiveSession">
+              <PropertyRef Name="Login_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_ImageStockUser">
+          <End Type="TransporterBaseModel.ImageStockUser" Role="ImageStockUser" Multiplicity="1" />
+          <End Type="TransporterBaseModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImageStockUser">
+              <PropertyRef Name="Id_Image" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Type="TransporterBaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="TransporterBaseModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User1">
+          <End Type="TransporterBaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="TransporterBaseModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_Manager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role1">
+          <End Type="TransporterBaseModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="TransporterBaseModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id_Role" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_User">
+          <End Type="TransporterBaseModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TransporterBaseModel.Worker" Role="Worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TransporterBaseModelContainer" CdmEntityContainer="TransporterBaseEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TransporterBaseModelContainer" CdmEntityContainer="TransporterBaseEntities4">
           <EntitySetMapping Name="ActiveSession">
             <EntityTypeMapping TypeName="TransporterBaseModel.ActiveSession">
               <MappingFragment StoreEntitySet="ActiveSession">
-                <ScalarProperty Name="Computer_Number" ColumnName="Computer_Number" />
                 <ScalarProperty Name="Login_User" ColumnName="Login_User" />
+                <ScalarProperty Name="Computer_Number" ColumnName="Computer_Number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1492,15 +1670,6 @@
           <EntitySetMapping Name="ImageStockMaterial">
             <EntityTypeMapping TypeName="TransporterBaseModel.ImageStockMaterial">
               <MappingFragment StoreEntitySet="ImageStockMaterial">
-                <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
-                <ScalarProperty Name="Name_Image" ColumnName="Name_Image" />
-                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ImageStockUser">
-            <EntityTypeMapping TypeName="TransporterBaseModel.ImageStockUser">
-              <MappingFragment StoreEntitySet="ImageStockUser">
                 <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
                 <ScalarProperty Name="Name_Image" ColumnName="Name_Image" />
                 <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
@@ -1637,16 +1806,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="TransporterBaseModel.User">
-              <MappingFragment StoreEntitySet="User">
+          <EntitySetMapping Name="Worker">
+            <EntityTypeMapping TypeName="TransporterBaseModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
                 <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
-                <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
+                <ScalarProperty Name="DateBorn" ColumnName="DateBorn" />
+                <ScalarProperty Name="Id_Address" ColumnName="Id_Address" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkerProcess">
+            <EntityTypeMapping TypeName="TransporterBaseModel.WorkerProcess">
+              <MappingFragment StoreEntitySet="WorkerProcess">
+                <ScalarProperty Name="Id_WorkProc" ColumnName="Id_WorkProc" />
+                <ScalarProperty Name="Login_Worker" ColumnName="Login_Worker" />
+                <ScalarProperty Name="Name_Process" ColumnName="Name_Process" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1656,6 +1831,29 @@
                 <ScalarProperty Name="Id_Workstation" ColumnName="Id_Workstation" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id_TypeWorkstation" ColumnName="Id_TypeWorkstation" />
+                <ScalarProperty Name="Name__Workstation" ColumnName="Name__Workstation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImageStockUser">
+            <EntityTypeMapping TypeName="TransporterBaseModel.ImageStockUser">
+              <MappingFragment StoreEntitySet="ImageStockUser">
+                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
+                <ScalarProperty Name="Name_Image" ColumnName="Name_Image" />
+                <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="TransporterBaseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

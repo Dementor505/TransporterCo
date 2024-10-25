@@ -13,19 +13,43 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="АВТОРИЗАЦИЯ" FontSize="50" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,150,0,0"></TextBlock>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0">
+        <TextBlock Text="РЕГИСТРАЦИЯ" FontSize="50" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,20,0,0"></TextBlock>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,20" Grid.Column="0">
             <TextBlock FontSize="30" Text="Login" Margin="0,0,0,30" TextAlignment="Right"></TextBlock>
-            <TextBlock FontSize="30" Text="Password"></TextBlock>
+            <TextBlock FontSize="30" Text="Password" Margin="0,0,0,30"></TextBlock>
+            <TextBlock FontSize="30" Text="Фамилия" Margin="0,0,0,30"></TextBlock>
+            <TextBlock FontSize="30" Text="Имя" Margin="0,0,0,30"></TextBlock>
+            <TextBlock FontSize="30" Text="Отчество" Margin="0,0,0,30"></TextBlock>
+            <TextBlock FontSize="30" Text="Аватарка" Margin="0,0,0,30"></TextBlock>
+            <TextBlock FontSize="30" Text="Роль" Margin="0,0,0,30"></TextBlock>
         </StackPanel>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="10,10,0,0">
-            <TextBox Height="30" Width="300" Margin="0,0,0,40"></TextBox>
-            <TextBox Height="30" Width="300"></TextBox>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="10,0,0,0">
+            <TextBox x:Name="LoginTb" Height="30" Width="300" Margin="0,0,0,40"></TextBox>
+            <TextBox x:Name="PasswordTb" Height="30" Width="300" Margin="0,0,0,40"></TextBox>
+            <TextBox x:Name="SurnameTb" Height="30" Width="300" Margin="0,0,0,40"></TextBox>
+            <TextBox x:Name="NameTb" Height="30" Width="300" Margin="0,0,0,40"></TextBox>
+            <TextBox x:Name="PatronymicTb" Height="30" Width="300" Margin="0,0,0,40"></TextBox>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="36" Margin="0,0,0,40">
+            <Button x:Name="ChooseImage" Height="30" Width="250" HorizontalAlignment="Left" Content="выбрать" VerticalAlignment="Center" Click="ChooseImage_Click"></Button>
+                <Border BorderThickness="3" BorderBrush="Black" Width="30" Height="30" Margin="20,0,0,0">
+                    <Rectangle x:Name="IndicatorImage" Height="30" Width="30" VerticalAlignment="Center" Margin="0,0,0,0" Fill="Red"></Rectangle>
+                </Border>
+            </StackPanel>
+            <ComboBox x:Name="RoleCb" Height="30" Width="300" Margin="0,0,0,40" SelectedIndex="0"></ComboBox>
         </StackPanel>
-        <RadioButton Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="330,200,0,0" Content="ЗАПОМНИ МЕНЯ ПОЖАЛУЙСТА" FontSize="20" VerticalContentAlignment="Center"></RadioButton>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,100" Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Button x:Name="BackBtn" Width="200" Height="70" Content="ВЕРНУТЬСЯ" Margin="0,0,50,0"></Button>
-            <Button x:Name="NextBtn" Width="200" Height="70" Content="ВОЙТИ"></Button>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button x:Name="BackBtn" Width="200" Height="120" Margin="0,0,50,0" Background="Transparent" BorderThickness="0">
+                <Grid>
+                    <Image Source="/Resources/NextBtn.png"></Image>
+                    <TextBlock Text = "ВЕРНУТЬСЯ" FontSize="30" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,15,0,0"></TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="NextBtn" Width="200" Height="120" Click="NextBtn_Click" Background="Transparent" BorderThickness="0">
+                <Grid>
+                    <Image Source="/Resources/NextBtn.png"></Image>
+                    <TextBlock Text = "ДАЛЕЕ" FontSize="30" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,15,0,0"></TextBlock>
+                </Grid>
+            </Button>
         </StackPanel>
     </Grid>
 </Page>
