@@ -13,10 +13,10 @@ namespace TransporterCompany.MainDataBase
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TransporterBaseEntities4 : DbContext
+    public partial class TransporterBaseEntities7 : DbContext
     {
-        public TransporterBaseEntities4()
-            : base("name=TransporterBaseEntities4")
+        public TransporterBaseEntities7()
+            : base("name=TransporterBaseEntities7")
         {
         }
     
@@ -34,6 +34,7 @@ namespace TransporterCompany.MainDataBase
         public virtual DbSet<Document> Document { get; set; }
         public virtual DbSet<ImageStockComponent> ImageStockComponent { get; set; }
         public virtual DbSet<ImageStockMaterial> ImageStockMaterial { get; set; }
+        public virtual DbSet<ImageStockUser> ImageStockUser { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<MaterialProduct> MaterialProduct { get; set; }
         public virtual DbSet<MaterialType> MaterialType { get; set; }
@@ -47,10 +48,12 @@ namespace TransporterCompany.MainDataBase
         public virtual DbSet<Standart> Standart { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TypeWorkstation> TypeWorkstation { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
         public virtual DbSet<WorkerProcess> WorkerProcess { get; set; }
+        public virtual DbSet<WorkshopIcons> WorkshopIcons { get; set; }
         public virtual DbSet<Workstation> Workstation { get; set; }
-        public virtual DbSet<ImageStockUser> ImageStockUser { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Icons> Icons { get; set; }
+        public virtual DbSet<Workshop> Workshop { get; set; }
     }
 }

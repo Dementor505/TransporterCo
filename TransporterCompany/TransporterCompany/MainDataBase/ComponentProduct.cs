@@ -15,7 +15,7 @@ namespace TransporterCompany.MainDataBase
     public partial class ComponentProduct
     {
         public int Id_CompProd { get; set; }
-        public Nullable<int> Id_Component { get; set; }
+        public string Id_Component { get; set; }
         public Nullable<int> Id_Product { get; set; }
         public Nullable<int> Count { get; set; }
     

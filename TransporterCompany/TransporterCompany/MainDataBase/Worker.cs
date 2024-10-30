@@ -26,8 +26,8 @@ namespace TransporterCompany.MainDataBase
         public string Education { get; set; }
     
         public virtual Address Address { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkerProcess> WorkerProcess { get; set; }
-        public virtual User User { get; set; }
     }
 }

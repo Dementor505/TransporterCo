@@ -15,7 +15,7 @@ namespace TransporterCompany.MainDataBase
     public partial class MaterialProduct
     {
         public int Id_MatProd { get; set; }
-        public Nullable<int> Id_Material { get; set; }
+        public string Id_Material { get; set; }
         public Nullable<int> Id_Product { get; set; }
         public Nullable<int> Count { get; set; }
     

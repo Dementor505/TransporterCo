@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:TransporterCompany"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Bahnschrift Condensed"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Bahnschrift Condensed"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

@@ -58,6 +58,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.2.0.2\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -83,6 +86,9 @@
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
     <Compile Include="MainDataBase\Document.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Icons.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
     <Compile Include="MainDataBase\ImageStockComponent.cs">
@@ -158,14 +164,44 @@
     <Compile Include="MainDataBase\WorkerProcess.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
+    <Compile Include="MainDataBase\Workshop.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\WorkshopIcons.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
     <Compile Include="MainDataBase\Workstation.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\ComponentControl.xaml.cs">
+      <DependentUpon>ComponentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\IconControl.xaml.cs">
+      <DependentUpon>IconControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\MaterialControl.xaml.cs">
+      <DependentUpon>MaterialControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainUserControls\WorkerControl.xaml.cs">
       <DependentUpon>WorkerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddEditWorker.xaml.cs">
       <DependentUpon>AddEditWorker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddIconPage.xaml.cs">
+      <DependentUpon>AddIconPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ComponentPage.xaml.cs">
+      <DependentUpon>ComponentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\IconsPage.xaml.cs">
+      <DependentUpon>IconsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MaterialPage.xaml.cs">
+      <DependentUpon>MaterialPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PlanPage.xaml.cs">
+      <DependentUpon>PlanPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RolePages\ClientPage.xaml.cs">
       <DependentUpon>ClientPage.xaml</DependentUpon>
@@ -185,8 +221,26 @@
     <Compile Include="Pages\WorkerPage.xaml.cs">
       <DependentUpon>WorkerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserButtons\ComponentsBtn.xaml.cs">
+      <DependentUpon>ComponentsBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\EmptyField.xaml.cs">
+      <DependentUpon>EmptyField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\EmptyField2.xaml.cs">
+      <DependentUpon>EmptyField2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserButtons\ExitAccountBtn.xaml.cs">
       <DependentUpon>ExitAccountBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\IconsBtn.xaml.cs">
+      <DependentUpon>IconsBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\MaterialsBtn.xaml.cs">
+      <DependentUpon>MaterialsBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserButtons\PlanBtn.xaml.cs">
+      <DependentUpon>PlanBtn.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserButtons\ProfileBtn.xaml.cs">
       <DependentUpon>ProfileBtn.xaml</DependentUpon>
@@ -203,6 +257,18 @@
     <Compile Include="Windows\WorkerRegistration.xaml.cs">
       <DependentUpon>WorkerRegistration.xaml</DependentUpon>
     </Compile>
+    <Page Include="MainUserControls\ComponentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainUserControls\IconControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainUserControls\MaterialControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainUserControls\WorkerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -223,11 +289,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AddIconPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ComponentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\EnterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\IconsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MaterialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PlanPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -267,7 +353,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserButtons\ComponentsBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserButtons\EmptyField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserButtons\EmptyField2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserButtons\ExitAccountBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserButtons\IconsBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserButtons\MaterialsBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserButtons\PlanBtn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -337,15 +447,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="UserImage\loginDEyua2018" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\NoPhotoNew.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Logo_Color_Transparent.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\NormalBtn.png" />
@@ -359,6 +467,97 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\ComponentsBtn.png" />
+    <Resource Include="Resources\MaterialsBtn.png" />
+    <Resource Include="Resources\Wall4.png" />
+    <Resource Include="Resources\Wall3.png" />
+    <Resource Include="Resources\Wall2.png" />
+    <Resource Include="Resources\Conveer_Basic.gif" />
+    <Resource Include="Resources\Wall.png" />
+    <Resource Include="Resources\PlusBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UserImage\loginDEaxm2018.png" />
+    <Resource Include="UserImage\loginDEbid2018.jpg" />
+    <Resource Include="UserImage\loginDEcui2018.png" />
+    <Resource Include="UserImage\loginDEcxr2018.jpg" />
+    <Resource Include="UserImage\loginDEdat2018.png" />
+    <Resource Include="UserImage\loginDEdgp2018.png" />
+    <Resource Include="UserImage\loginDEdsm2018.jpg" />
+    <Resource Include="UserImage\loginDEefa2018.png" />
+    <Resource Include="UserImage\loginDEemw2018.png" />
+    <Resource Include="UserImage\loginDEfsp2018.png" />
+    <Resource Include="UserImage\loginDEgcl2018.jpg" />
+    <Resource Include="UserImage\loginDEggp2018.png" />
+    <Resource Include="UserImage\loginDEgho2018.jpg" />
+    <Resource Include="UserImage\loginDEgju2018.jpg" />
+    <Resource Include="UserImage\loginDEill2018.png" />
+    <Resource Include="UserImage\loginDEisy2018.png" />
+    <Resource Include="UserImage\loginDEitt2018.png" />
+    <Resource Include="UserImage\loginDEiyy2018.gif" />
+    <Resource Include="UserImage\loginDEjrd2018.png" />
+    <Resource Include="UserImage\loginDEket2018.png" />
+    <Resource Include="UserImage\loginDElag2018.jpg" />
+    <Resource Include="UserImage\loginDEnoq2018.jpg" />
+    <Resource Include="UserImage\loginDEocb2018.png" />
+    <Resource Include="UserImage\loginDEoni2018.jpg" />
+    <Resource Include="UserImage\loginDEosl2018.jpg" />
+    <Resource Include="UserImage\loginDEpri2018.jpg" />
+    <Resource Include="UserImage\loginDEpwa2018.jpg" />
+    <Resource Include="UserImage\loginDEqda2018.png" />
+    <Resource Include="UserImage\loginDErvs2018.jpg" />
+    <Resource Include="UserImage\loginDErwk2018.png" />
+    <Resource Include="UserImage\loginDEsds2018.png" />
+    <Resource Include="UserImage\loginDEshj2018.gif" />
+    <Resource Include="UserImage\loginDEsjj2018.png" />
+    <Resource Include="UserImage\loginDEslj2018.jpg" />
+    <Resource Include="UserImage\loginDEsmg2018.jpg" />
+    <Resource Include="UserImage\loginDEteq2018.png" />
+    <Resource Include="UserImage\loginDEtic2018.jpg" />
+    <Resource Include="UserImage\loginDEuwn2018.jpg" />
+    <Resource Include="UserImage\loginDEvem2018.png" />
+    <Resource Include="UserImage\loginDEvkg2018.jpg" />
+    <Resource Include="UserImage\loginDEwdm2018.jpg" />
+    <Resource Include="UserImage\loginDEwfv2018.png" />
+    <Resource Include="UserImage\loginDExeu2018.png" />
+    <Resource Include="UserImage\loginDExhd2018.png" />
+    <Resource Include="UserImage\loginDExsu2018.jpg" />
+    <Resource Include="UserImage\loginDEykk2018.gif" />
+    <Resource Include="UserImage\loginDEytk2018.png" />
+    <Resource Include="UserImage\loginDEzfi2018.jpg" />
+    <Resource Include="UserImage\loginDEzre2018.jpg" />
+    <Resource Include="MaterialImage\Б50.jpg" />
+    <Resource Include="MaterialImage\К44.jpg" />
+    <Resource Include="MaterialImage\К53.jpg" />
+    <Resource Include="MaterialImage\К55.jpg" />
+    <Resource Include="MaterialImage\Л28.jpg" />
+    <Resource Include="MaterialImage\Т5.jpg" />
+    <Resource Include="MaterialImage\У7.jpg" />
+    <Resource Include="MaterialImage\Ф56.jpg" />
+    <Resource Include="MaterialImage\Ш17.jpg" />
+    <Resource Include="MaterialImage\Ш19.png" />
+    <Resource Include="MaterialImage\Ш43.jpg" />
+    <Resource Include="Resources\EllipseWall.png" />
+    <Resource Include="Resources\Logo_Color_Transparent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Wall8.png" />
+    <Resource Include="Resources\Wall6.png" />
+    <Resource Include="Resources\Wall7.png" />
+    <Resource Include="Resources\wall5.png" />
+    <Resource Include="Resources\IconBtn.png" />
+    <Resource Include="Workshop\Заготовительный цех-export.png" />
+    <Resource Include="Workshop\Механический цех-export.png" />
+    <Resource Include="Workshop\Покрасочный цех-export.png" />
+    <Resource Include="Workshop\Сборочный цех-export.png" />
+    <Resource Include="Workshop\Упаковочный цех-export.png" />
+    <Resource Include="Resources\PlanBtn.png" />
+    <Resource Include="Workshop\Aptechka.png" />
+    <Resource Include="Workshop\Equipment.png" />
+    <Resource Include="Workshop\Exit.png" />
+    <Resource Include="Workshop\Ognetushitel.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="MainDataBase\TransporterBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TransporterBase.edmx</DependentUpon>
@@ -369,8 +568,7 @@
       <DependentUpon>TransporterBase.edmx</DependentUpon>
       <LastGenOutput>TransporterBase.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\PlusBtn.png" />
+    <Resource Include="Resources\DeleteBtn.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -36,7 +36,7 @@ namespace TransporterCompany.Windows
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Типо удалено");
+            
             this.Close();
         }
 

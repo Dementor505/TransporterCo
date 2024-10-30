@@ -9,6 +9,8 @@
       Title="EnterPage">
 
     <Grid>
+        <Image Source="/Resources/Wall.png"></Image>
+        <Image x:Name="ImageConveer" Source="/Resources/Conveer_Basic.gif" VerticalAlignment="Top" Height="200" Margin="0,20,0,0"></Image>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" TextAlignment="Center" Margin="0,-150,0,0">
             <Run Text="ВЫБЕРИ ТО"></Run>
             <LineBreak></LineBreak>

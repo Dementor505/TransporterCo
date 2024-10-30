@@ -13,6 +13,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Image Source="/Resources/Wall.png" Grid.ColumnSpan="2"></Image>
         <TextBlock Text="АВТОРИЗАЦИЯ" FontSize="50" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,150,0,0"></TextBlock>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0">
             <TextBlock FontSize="30" Text="Login" Margin="0,0,0,30" TextAlignment="Right"></TextBlock>

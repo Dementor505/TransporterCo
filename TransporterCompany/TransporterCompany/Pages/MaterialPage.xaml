@@ -1,0 +1,29 @@
+﻿<Page x:Class="TransporterCompany.Pages.MaterialPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TransporterCompany.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1050"
+      Title="MaterialPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"></RowDefinition>
+            <RowDefinition Height="570"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="/Resources/Wall4.png" Grid.Row="0" Grid.RowSpan="2"></Image>
+        <StackPanel Grid.Row="0">
+            <Button x:Name="PlusBtn" Width="150" Height="100" Margin="0,30,50,0" Background="Transparent" BorderThickness="0">
+                <Grid>
+                    <Image Source="/Resources/PlusBtn.png"></Image>
+                    <TextBlock Text = "ДОБАВИТЬ" FontSize="20" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,15,0,0"></TextBlock>
+                </Grid>
+            </Button>
+        </StackPanel>
+        <ScrollViewer Width="1050" Height="550" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Grid.Row="1">
+            <WrapPanel Width="1050" Margin="50,0,0,0" x:Name="materialWp"></WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

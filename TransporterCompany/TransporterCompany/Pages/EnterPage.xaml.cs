@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfAnimatedGif;
 
 namespace TransporterCompany.Pages
 {
@@ -24,6 +25,7 @@ namespace TransporterCompany.Pages
         {
             InitializeComponent();
             App.mainButtons.ClearWrapPanel();
+            ImageBehavior.SetAnimatedSource(ImageConveer, new BitmapImage(new Uri("/Resources/Conveer_Basic.gif",UriKind.Relative)));
         }
 
         private void AuthBtn_Click(object sender, RoutedEventArgs e)

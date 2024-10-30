@@ -17,26 +17,32 @@
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="700"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="3" Grid.ColumnSpan="2" Grid.Row="0">
+        <Image Source="/Resources/Wall2.png" Grid.Column="1" Grid.Row="1"></Image>
+        <Image Grid.ColumnSpan="2" Source="/Resources/Wall8.png"></Image>
+        <Border BorderBrush="Black" BorderThickness="0" Grid.ColumnSpan="2" Grid.Row="0">
             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="0">
                 <Image Source="/Resources/Logo_Color_Transparent.png"></Image>
                 <TextBlock Text="Transporter Company" TextAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
             </StackPanel>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="3" Grid.Column="1" Grid.Row="1" Margin="0,-3,0,0">
+        <Border BorderBrush="Black" BorderThickness="0" Grid.Column="1" Grid.Row="1" Margin="0,-3,0,0">
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-                
+
             </StackPanel>
         </Border>
         <StackPanel Grid.Column="0" Grid.Row="1">
             <Frame x:Name="MenuFrame" Height="700" Width="1050" NavigationUIVisibility="Hidden">
-                
+
             </Frame>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <WrapPanel x:Name="mainWrapPanel" Width="250">
-                
-            </WrapPanel>
+            <ScrollViewer x:Name="ScrollMenu" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Height="700" Grid.RowSpan="2">
+                <WrapPanel x:Name="mainWrapPanel" Width="180" Margin="10,40,0,0" Grid.RowSpan="2">
+
+                </WrapPanel>
+            </ScrollViewer>
         </StackPanel>
+        <Image Source="/Resources/Wall6.png" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Grid.RowSpan="2"></Image>
+        <Image Source="/Resources/Wall7.png" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom"></Image>
     </Grid>
 </Page>

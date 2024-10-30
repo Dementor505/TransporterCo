@@ -20,11 +20,11 @@ namespace TransporterCompany.MainDataBase
             this.ComponentProduct = new HashSet<ComponentProduct>();
         }
     
-        public int Id_Component { get; set; }
+        public string Id_Component { get; set; }
         public string Name_Component { get; set; }
         public Nullable<int> Id_SizeType { get; set; }
         public Nullable<int> Count { get; set; }
-        public string Name_Provider { get; set; }
+        public Nullable<int> Id_Provider { get; set; }
         public Nullable<int> Id_Image { get; set; }
         public Nullable<int> Id_ComponentType { get; set; }
         public Nullable<decimal> Cost { get; set; }

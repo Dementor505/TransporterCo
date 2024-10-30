@@ -20,7 +20,7 @@ namespace TransporterCompany.MainDataBase
             this.MaterialProduct = new HashSet<MaterialProduct>();
         }
     
-        public int Id_Material { get; set; }
+        public string Id_Material { get; set; }
         public string Name_Material { get; set; }
         public Nullable<int> Id_SizeType { get; set; }
         public Nullable<int> Count { get; set; }
@@ -28,8 +28,8 @@ namespace TransporterCompany.MainDataBase
         public Nullable<int> Id_Image { get; set; }
         public Nullable<int> Id_TypeMaterial { get; set; }
         public Nullable<decimal> Cost_Material { get; set; }
-        public Nullable<int> Length_Material { get; set; }
-        public string Description_Material { get; set; }
+        public Nullable<double> Length_Material { get; set; }
+        public Nullable<double> Mass_Material { get; set; }
         public Nullable<int> Id_Standart { get; set; }
     
         public virtual ImageStockMaterial ImageStockMaterial { get; set; }

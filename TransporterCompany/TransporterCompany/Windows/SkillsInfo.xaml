@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TransporterCompany.Windows"
         mc:Ignorable="d"
-        Title="SkillsInfo" Height="400" Width="300" WindowStyle="None">
+        Title="SkillsInfo" Height="400" Width="400" WindowStyle="None">
     <Grid>
         <ListView x:Name="mainListView">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="НЕОБХОДИМЫЕ УМЕНИЯ" Width="300">
+                    <GridViewColumn Header="НЕОБХОДИМЫЕ УМЕНИЯ" Width="400">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Process_Name}" />
+                                <TextBlock FontSize="20" Text="{Binding Process_Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

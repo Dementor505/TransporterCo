@@ -41,6 +41,8 @@ namespace TransporterCompany.Pages
             {
                 App.menuFrame.Navigate(new EnterPage());
             }
+
+            ScrollMenu.ScrollToVerticalOffset(350);
         }
         public ActiveSession CheckSessions()
         {
