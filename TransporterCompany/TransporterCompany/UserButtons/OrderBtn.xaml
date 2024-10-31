@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TransporterCompany.UserButtons.WorkerBtn"
+﻿<UserControl x:Class="TransporterCompany.UserButtons.OrderBtn"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="180">
     <Grid Margin="10" Height="80" Width="160">
-        <Button Background="Transparent" BorderThickness="0" x:Name="WorkerButton" Click="WorkerButton_Click">
+        <Button Background="Transparent" BorderThickness="0" x:Name="OrderButton" Click="OrderButton_Click">
             <Grid>
-                <Image Source="/Resources/PeopleBtn.png"></Image>
-                <TextBlock Text = "РАБОТНИКИ" FontSize="28" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,10,0,0"></TextBlock>
+                <Image Source="/Resources/LogoutBtn.png"></Image>
+                <TextBlock Text = "ЗАКАЗЫ" FontSize="28" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,10,0,0"></TextBlock>
             </Grid>
         </Button>
     </Grid>

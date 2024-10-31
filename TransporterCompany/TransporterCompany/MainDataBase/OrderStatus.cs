@@ -12,14 +12,17 @@ namespace TransporterCompany.MainDataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class MaterialProduct
+    public partial class OrderStatus
     {
-        public int Id_MatProd { get; set; }
-        public string Id_Material { get; set; }
-        public Nullable<int> Id_Product { get; set; }
-        public Nullable<int> Count { get; set; }
+        public int Id_OrderStatus { get; set; }
+        public Nullable<int> Id_Status { get; set; }
+        public Nullable<System.DateTime> Date_Change { get; set; }
+        public Nullable<System.TimeSpan> Time_Change { get; set; }
+        public Nullable<int> Id_Order { get; set; }
+        public string Description { get; set; }
+        public string Id_OldStatus { get; set; }
     
-        public virtual Product Product { get; set; }
-        public virtual Material Material { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

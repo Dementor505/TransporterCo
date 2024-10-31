@@ -18,6 +18,7 @@ namespace TransporterCompany.MainDataBase
         public Order()
         {
             this.Document = new HashSet<Document>();
+            this.OrderStatus = new HashSet<OrderStatus>();
         }
     
         public int Id_Order { get; set; }
@@ -34,5 +35,7 @@ namespace TransporterCompany.MainDataBase
         public virtual Product Product { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderStatus> OrderStatus { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace TransporterCompany.MainDataBase
         public Nullable<int> Id_Product { get; set; }
         public Nullable<int> Count { get; set; }
     
-        public virtual Component Component { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Component Component { get; set; }
     }
 }

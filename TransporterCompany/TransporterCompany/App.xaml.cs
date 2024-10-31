@@ -16,9 +16,12 @@ namespace TransporterCompany
     public partial class App : Application
     {
         public static Frame menuFrame;
-        public static TransporterBaseEntities7 transBase = new TransporterBaseEntities7();
+        public static TransporterBaseEntities8 transBase = new TransporterBaseEntities8();
         public static User loggedUser;
         public static MainButtons mainButtons;
         public static WrapPanel iconsPanel;
+        public static WrapPanel materialPanel;
+        public static WrapPanel componentPanel;
+        public static WrapPanel workerPanel;
     }
 }

@@ -19,6 +19,8 @@ namespace TransporterCompany.MainDataBase
         public Nullable<int> Id_Icon { get; set; }
         public Nullable<double> X_Position { get; set; }
         public Nullable<double> Y_Position { get; set; }
+        public Nullable<double> Width_Icon { get; set; }
+        public Nullable<double> Heigth_Icon { get; set; }
     
         public virtual Icons Icons { get; set; }
         public virtual Workshop Workshop { get; set; }

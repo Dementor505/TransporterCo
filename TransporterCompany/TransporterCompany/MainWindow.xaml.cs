@@ -25,7 +25,7 @@ namespace TransporterCompany
         public MainWindow()
         {
             InitializeComponent();
-            MessageBox.Show("деделай 2.1 потом 1 сессию и принимайся на 2.2. 2.2 за день полностью");
+            //MessageBox.Show("деделай 2.1 потом 1 сессию и принимайся на 2.2. 2.2 за день полностью");
             MainFrame.Navigate(new StartPage());
 
             double screenWidth = SystemParameters.PrimaryScreenWidth;

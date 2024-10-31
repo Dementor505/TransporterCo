@@ -27,15 +27,18 @@ namespace TransporterCompany.MainDataBase
         public Nullable<int> Id_Provider { get; set; }
         public Nullable<int> Id_Image { get; set; }
         public Nullable<int> Id_TypeMaterial { get; set; }
-        public Nullable<decimal> Cost_Material { get; set; }
+        public Nullable<double> Cost_Material { get; set; }
         public Nullable<double> Length_Material { get; set; }
         public Nullable<double> Mass_Material { get; set; }
         public Nullable<int> Id_Standart { get; set; }
+        public Nullable<System.DateTime> DeliveryDate { get; set; }
+        public Nullable<int> Id_Storage { get; set; }
     
         public virtual ImageStockMaterial ImageStockMaterial { get; set; }
         public virtual MaterialType MaterialType { get; set; }
         public virtual SizeType SizeType { get; set; }
         public virtual Standart Standart { get; set; }
+        public virtual Storage Storage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialProduct> MaterialProduct { get; set; }
     }

@@ -19,6 +19,7 @@ using static System.Net.WebRequestMethods;
 using TransporterCompany.MainDataBase;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace TransporterCompany.Pages
 {
@@ -41,33 +42,42 @@ namespace TransporterCompany.Pages
             if (LoginTb.Text != "" && PasswordTb.Text != "" && SurnameTb.Text != "" &&
                 NameTb.Text != "" && PatronymicTb.Text != "" && IndicatorImage.Fill == Brushes.Green)
             {
-                if (!App.transBase.User.Any(x => x.Login == LoginTb.Text))
-                {
-                    if (RoleCb.SelectedIndex == 0)
-                    {
-                        User newUser = new User()
-                        {
-                            Login = LoginTb.Text,
-                            Password = PasswordTb.Text,
-                            Surname = SurnameTb.Text,
-                            Name = NameTb.Text,
-                            Patronymic = PatronymicTb.Text,
-                            Id_Role = RoleCb.SelectedIndex + 1,
-                            Id_Image = addedImage.Id_Image,
-                        };
-                        App.transBase.User.Add(newUser);
-                        App.transBase.SaveChanges();
-                        App.loggedUser = newUser;
-                        App.menuFrame.Navigate(new ProfilePage());
-                    }
-                    else
-                    {
-                        WorkerRegistration workerRegistration = new WorkerRegistration(LoginTb.Text, PasswordTb.Text, SurnameTb.Text, NameTb.Text, PatronymicTb.Text, RoleCb.SelectedIndex + 1, addedImage.Id_Image);
-                        workerRegistration.ShowDialog();
+                string pattern = @"^(?=.*[A-Z])(?=.*\d)[A-Za-z\d^(*&{}|+)]{4,16}$";
 
+                if (Regex.IsMatch(PasswordTb.Text, pattern))
+                {
+                    if (!App.transBase.User.Any(x => x.Login == LoginTb.Text))
+                    {
+                        if (RoleCb.SelectedIndex == 0)
+                        {
+                            User newUser = new User()
+                            {
+                                Login = LoginTb.Text,
+                                Password = PasswordTb.Text,
+                                Surname = SurnameTb.Text,
+                                Name = NameTb.Text,
+                                Patronymic = PatronymicTb.Text,
+                                Id_Role = RoleCb.SelectedIndex + 1,
+                                Id_Image = addedImage.Id_Image,
+                            };
+                            App.transBase.User.Add(newUser);
+                            App.transBase.SaveChanges();
+                            App.loggedUser = newUser;
+                            App.menuFrame.Navigate(new ProfilePage());
+                        }
+                        else
+                        {
+                            WorkerRegistration workerRegistration = new WorkerRegistration(LoginTb.Text, PasswordTb.Text, SurnameTb.Text, NameTb.Text, PatronymicTb.Text, RoleCb.SelectedIndex + 1, addedImage.Id_Image);
+                            workerRegistration.ShowDialog();
+
+                        }
                     }
+                    else MessageBox.Show("Такой пользователь уже есть");
                 }
-                else MessageBox.Show("Такой пользователь уже есть");
+                else
+                {
+                    MessageBox.Show("Пароль должен содержать от 4 до 16 символов. С заглавной буквой. С цифрой. и без спец.знаков.");
+                }
             }
         }
 

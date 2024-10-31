@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TransporterCompany.MainUserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="320" d:DesignWidth="260">
+             d:DesignHeight="320" d:DesignWidth="260" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
     <Grid Margin="20,10" Height="300" Width="200">
         <Border BorderBrush="#FFAB0000" BorderThickness="3">
             <Grid>
                 <Rectangle Fill="#FFFF6C6C"></Rectangle>
                 <Grid x:Name="FirstLayer" Visibility="Visible">
-                    <Image x:Name="materialImage" Height="300" Width="195" Stretch="Fill"></Image>
+                    <Image x:Name="componentImage" Height="300" Width="195" Stretch="Fill"></Image>
                     <Rectangle Fill="#FF731010" Opacity="0.7" VerticalAlignment="Bottom" Height="100"></Rectangle>
                     <TextBlock  VerticalAlignment="Bottom" x:Name="IdTb" Foreground="White" Text="АЙ ДИ" HorizontalAlignment="Center" Margin="0,0,0,50" FontSize="30" FontFamily="Bahnschrift Condensed"></TextBlock>
                     <TextBlock VerticalAlignment="Bottom" x:Name="NameTb" Foreground="White" Text="НАИМЕНОВАНИЕ" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="30" FontFamily="Bahnschrift SemiBold Condensed"></TextBlock>
@@ -19,13 +19,11 @@
                 <Grid x:Name="SecondLayer" Visibility="Hidden">
                     <Image x:Name="workerImage2" Height="300" Width="195" Stretch="Fill"></Image>
                     <Rectangle Fill="#FF731010" Opacity="0.7" VerticalAlignment="Bottom" Height="300"></Rectangle>
-                    <TextBlock x:Name="Name2Tb" VerticalAlignment="Center" Foreground="White" Text="ФАМИЛИЯ" HorizontalAlignment="Center" Margin="0,0,0,200" FontSize="20"></TextBlock>
-                    <TextBlock x:Name="SurnameTb" VerticalAlignment="Center" Foreground="White" Text="ИМЯ" HorizontalAlignment="Center" Margin="0,0,0,130" FontSize="20"></TextBlock>
-                    <TextBlock x:Name="PatronymicTb" VerticalAlignment="Center" Foreground="White" Text="ОТЧЕСТВО" HorizontalAlignment="Center" Margin="0,0,0,60" FontSize="20"></TextBlock>
-                    <TextBlock x:Name="DateTb" VerticalAlignment="Center" Foreground="White" Text="ДР" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="20"></TextBlock>
-                    <TextBlock x:Name="EducationTb" VerticalAlignment="Center" Foreground="White" Text="ОБР-ИЕ" HorizontalAlignment="Center" Margin="0,100,0,0" FontSize="20"></TextBlock>
-                    <Rectangle Fill="#FF731010" Opacity="0.3" VerticalAlignment="Bottom" Height="75"></Rectangle>
-                    <TextBlock x:Name="SkillsTb" Foreground="White" Text="УМЕНИЯ" HorizontalAlignment="Center" Width="200" Height="70" Margin="0,0,0,5" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="10"></TextBlock>
+                    <TextBlock x:Name="CountTb" VerticalAlignment="Center" Foreground="White" Text="ФАМИЛИЯ" HorizontalAlignment="Center" Margin="0,0,0,200" FontSize="20"></TextBlock>
+                    <TextBlock x:Name="UnitTb" VerticalAlignment="Center" Foreground="White" Text="ИМЯ" HorizontalAlignment="Center" Margin="0,0,0,130" FontSize="20"></TextBlock>
+                    <TextBlock x:Name="costTb" VerticalAlignment="Center" Foreground="White" Text="ОТЧЕСТВО" HorizontalAlignment="Center" Margin="0,0,0,60" FontSize="20"></TextBlock>
+                    <TextBlock x:Name="ProviderTb" VerticalAlignment="Center" Foreground="White" Text="ДР" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="20"></TextBlock>
+                    <TextBlock x:Name="DateTb" VerticalAlignment="Center" Foreground="White" Text="ОБР-ИЕ" HorizontalAlignment="Center" Margin="0,100,0,0" FontSize="20"></TextBlock>
                 </Grid>
             </Grid>
         </Border>

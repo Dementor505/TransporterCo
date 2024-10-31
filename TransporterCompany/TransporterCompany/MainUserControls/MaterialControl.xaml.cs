@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TransporterCompany.MainDataBase;
+using TransporterCompany.Windows;
 
 namespace TransporterCompany.MainUserControls
 {
@@ -22,14 +23,25 @@ namespace TransporterCompany.MainUserControls
     /// </summary>
     public partial class MaterialControl : UserControl
     {
+        Material _material;
         public MaterialControl(Material material)
         {
             InitializeComponent();
+            _material = material;
 
             IdTb.Text = material.Id_Material;
             NameTb.Text = material.Name_Material;
             if (material.ImageStockMaterial.ImageSource != null) materialImage.Source = GetImage(material.ImageStockMaterial.ImageSource);
-            if (material.ImageStockMaterial.ImageSource == null) materialImage.Source = new BitmapImage(new Uri(@"\Resources\NoPhotoNew.png", UriKind.Relative)); ;
+            if (material.ImageStockMaterial.ImageSource == null) materialImage.Source = new BitmapImage(new Uri(@"\Resources\NoPhotoNew.png", UriKind.Relative));
+
+            string nameProvider = App.transBase.Provider.Where(z => z.Id_Provider == material.Id_Provider).Select(z => z.Name_Provider).FirstOrDefault();
+
+            ProviderTb.Text = nameProvider;
+            CountTb.Text = "Кол-вл " + material.Count.ToString();
+            UnitTb.Text = "Ед-изм " + material.SizeType.Name_SizeType;
+            DateTb.Text = material.DeliveryDate.ToString();
+            costTb.Text = material.Cost_Material.ToString() + ".р";
+
         }
         public BitmapImage GetImage(byte[] byteImage)
         {
@@ -56,6 +68,16 @@ namespace TransporterCompany.MainUserControls
         {
             FirstLayer.Visibility = Visibility.Visible;
             SecondLayer.Visibility = Visibility.Hidden;
+        }
+
+        private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ChoiseMaterial choiseMaterial = new ChoiseMaterial(_material);
+            Point cursorPosition = Mouse.GetPosition(this);
+            Point screenPosition = this.PointToScreen(cursorPosition);
+            choiseMaterial.Left = screenPosition.X - choiseMaterial.Width / 2;
+            choiseMaterial.Top = screenPosition.Y - choiseMaterial.Height / 2;
+            if (!choiseMaterial.IsLoaded) choiseMaterial.Show();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TransporterCompany.MainDataBase;
 using TransporterCompany.MainUserControls;
 
 namespace TransporterCompany.Pages
@@ -29,6 +31,29 @@ namespace TransporterCompany.Pages
             {
                 componentWp.Children.Add(new ComponentControl(component));
             }
+
+            ObservableCollection<string> storageNames = new ObservableCollection<string>(App.transBase.Storage.Select(x => x.Name_Storage));
+            storageNames.Insert(0, "Все склады");
+            StorageCb.ItemsSource = storageNames;
+            StorageCb.SelectedIndex = 0;
+        }
+        public void Refresh()
+        {
+            componentWp.Children.Clear();
+
+            List<Component> componentList = App.transBase.Component.ToList();
+
+            componentList = componentList.Where(x => x.Id_Storage == StorageCb.SelectedIndex + 1).ToList();
+
+            foreach (var component in componentList)
+            {
+                componentWp.Children.Add(new ComponentControl(component));
+            }
+        }
+
+        private void StorageCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Refresh();
         }
     }
 }

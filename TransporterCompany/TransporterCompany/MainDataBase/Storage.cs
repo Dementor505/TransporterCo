@@ -12,30 +12,21 @@ namespace TransporterCompany.MainDataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Component
+    public partial class Storage
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Component()
+        public Storage()
         {
-            this.ComponentProduct = new HashSet<ComponentProduct>();
+            this.Component = new HashSet<Component>();
+            this.Material = new HashSet<Material>();
         }
     
-        public string Id_Component { get; set; }
-        public string Name_Component { get; set; }
-        public Nullable<int> Id_SizeType { get; set; }
-        public Nullable<int> Count { get; set; }
-        public Nullable<int> Id_Provider { get; set; }
-        public Nullable<int> Id_Image { get; set; }
-        public Nullable<int> Id_ComponentType { get; set; }
-        public Nullable<double> Cost { get; set; }
-        public Nullable<int> Weight { get; set; }
-        public Nullable<int> Id_Storage { get; set; }
+        public int Id_Storage { get; set; }
+        public string Name_Storage { get; set; }
     
-        public virtual ComponentType ComponentType { get; set; }
-        public virtual ImageStockComponent ImageStockComponent { get; set; }
-        public virtual Provider Provider { get; set; }
-        public virtual Storage Storage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComponentProduct> ComponentProduct { get; set; }
+        public virtual ICollection<Component> Component { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Material> Material { get; set; }
     }
 }

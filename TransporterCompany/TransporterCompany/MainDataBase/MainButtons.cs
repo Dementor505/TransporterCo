@@ -10,11 +10,16 @@ namespace TransporterCompany.MainDataBase
 {
     public class MainButtons
     {
-        UserControl[] simpleUser = new UserControl[] { new ExitAccountBtn(), new ProfileBtn()};
-        UserControl[] directorUser = new UserControl[] {new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
-            new WorkerBtn(), new MaterialsBtn(), new ComponentsBtn(), new PlanBtn(), new IconsBtn(),
+        UserControl[] simpleUser = new UserControl[] { new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
         new EmptyField()};
-        UserControl[] workerUser = new UserControl[] { new ExitAccountBtn(), new ProfileBtn() };
+
+        UserControl[] directorUser = new UserControl[] {new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
+            new WorkerBtn(), new MaterialsBtn(), new ComponentsBtn(), new PlanBtn(), new IconsBtn(),new OrderBtn(),
+        new EmptyField()};
+
+        UserControl[] workerUser = new UserControl[] { new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
+            new MaterialsBtn(), new ComponentsBtn(),
+        new EmptyField()};
 
         public WrapPanel mainWrapPanel;
 
@@ -42,6 +47,18 @@ namespace TransporterCompany.MainDataBase
                         }
                         break;
                     case 3:
+                        foreach (var button in workerUser)
+                        {
+                            mainWrapPanel.Children.Add(button);
+                        }
+                        break;
+                    case 4:
+                        foreach (var button in workerUser)
+                        {
+                            mainWrapPanel.Children.Add(button);
+                        }
+                        break;
+                    case 5:
                         foreach (var button in workerUser)
                         {
                             mainWrapPanel.Children.Add(button);

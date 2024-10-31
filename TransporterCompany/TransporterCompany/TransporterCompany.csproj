@@ -113,6 +113,9 @@
     <Compile Include="MainDataBase\Order.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
+    <Compile Include="MainDataBase\OrderStatus.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
     <Compile Include="MainDataBase\Product.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
@@ -132,6 +135,12 @@
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
     <Compile Include="MainDataBase\Standart.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Status.cs">
+      <DependentUpon>TransporterBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataBase\Storage.cs">
       <DependentUpon>TransporterBase.tt</DependentUpon>
     </Compile>
     <Compile Include="MainDataBase\sysdiagrams.cs">
@@ -182,8 +191,17 @@
     <Compile Include="MainUserControls\MaterialControl.xaml.cs">
       <DependentUpon>MaterialControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainUserControls\OrderControl.xaml.cs">
+      <DependentUpon>OrderControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainUserControls\WorkerControl.xaml.cs">
       <DependentUpon>WorkerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddEditComponent.xaml.cs">
+      <DependentUpon>AddEditComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddEditMaterial.xaml.cs">
+      <DependentUpon>AddEditMaterial.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddEditWorker.xaml.cs">
       <DependentUpon>AddEditWorker.xaml</DependentUpon>
@@ -199,6 +217,9 @@
     </Compile>
     <Compile Include="Pages\MaterialPage.xaml.cs">
       <DependentUpon>MaterialPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\OrderPage.xaml.cs">
+      <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PlanPage.xaml.cs">
       <DependentUpon>PlanPage.xaml</DependentUpon>
@@ -239,6 +260,9 @@
     <Compile Include="UserButtons\MaterialsBtn.xaml.cs">
       <DependentUpon>MaterialsBtn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserButtons\OrderBtn.xaml.cs">
+      <DependentUpon>OrderBtn.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserButtons\PlanBtn.xaml.cs">
       <DependentUpon>PlanBtn.xaml</DependentUpon>
     </Compile>
@@ -247,6 +271,9 @@
     </Compile>
     <Compile Include="UserButtons\WorkerBtn.xaml.cs">
       <DependentUpon>WorkerBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ChoiseMaterial.xaml.cs">
+      <DependentUpon>ChoiseMaterial.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ChoiseWorker.xaml.cs">
       <DependentUpon>ChoiseWorker.xaml</DependentUpon>
@@ -269,6 +296,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainUserControls\OrderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainUserControls\WorkerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -285,6 +316,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AddEditComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddEditMaterial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AddEditWorker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -310,6 +349,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MaterialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\OrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -377,6 +420,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserButtons\OrderBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserButtons\PlanBtn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -386,6 +433,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserButtons\WorkerBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ChoiseMaterial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -558,6 +609,9 @@
     <Resource Include="Workshop\Ognetushitel.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\DeleteBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="MainDataBase\TransporterBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TransporterBase.edmx</DependentUpon>
@@ -568,7 +622,6 @@
       <DependentUpon>TransporterBase.edmx</DependentUpon>
       <LastGenOutput>TransporterBase.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\DeleteBtn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

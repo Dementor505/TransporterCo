@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,10 +27,40 @@ namespace TransporterCompany.Pages
         {
             InitializeComponent();
 
+            App.materialPanel = materialWp;
+
             foreach (var material in App.transBase.Material)
             {
                 materialWp.Children.Add(new MaterialControl(material));
             }
+
+            ObservableCollection<string> storageNames = new ObservableCollection<string>(App.transBase.Storage.Select(x => x.Name_Storage));
+            storageNames.Insert(0, "Все склады");
+            StorageCb.ItemsSource = storageNames;
+            StorageCb.SelectedIndex = 0;
+        }
+        public void Refresh()
+        {
+            materialWp.Children.Clear();
+
+            List<Material> materialList = App.transBase.Material.ToList();
+
+            if(StorageCb.SelectedItem.ToString() != "Всё склады") materialList = materialList.Where(x => x.Id_Storage == StorageCb.SelectedIndex+1).ToList();
+
+            foreach (var material in materialList)
+            {
+                materialWp.Children.Add(new MaterialControl(material));
+            }
+        }
+
+        private void StorageCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Refresh();
+        }
+
+        private void PlusBtn_Click(object sender, RoutedEventArgs e)
+        {
+            App.menuFrame.Navigate(new AddEditMaterial(new Material()));
         }
     }
 }

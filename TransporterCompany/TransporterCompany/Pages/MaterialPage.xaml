@@ -14,8 +14,13 @@
             <RowDefinition Height="570"></RowDefinition>
         </Grid.RowDefinitions>
         <Image Source="/Resources/Wall4.png" Grid.Row="0" Grid.RowSpan="2"></Image>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="0" Margin="0,30,650,0">
+            <TextBlock Text="СКЛАД" FontSize="30"></TextBlock>
+            <ComboBox x:Name="StorageCb" Width="300" Height="50" SelectionChanged="StorageCb_SelectionChanged">
+            </ComboBox>
+        </StackPanel>
         <StackPanel Grid.Row="0">
-            <Button x:Name="PlusBtn" Width="150" Height="100" Margin="0,30,50,0" Background="Transparent" BorderThickness="0">
+            <Button x:Name="PlusBtn" Width="150" Height="100" Margin="0,30,50,0" Background="Transparent" BorderThickness="0" Click="PlusBtn_Click">
                 <Grid>
                     <Image Source="/Resources/PlusBtn.png"></Image>
                     <TextBlock Text = "ДОБАВИТЬ" FontSize="20" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,15,0,0"></TextBlock>
