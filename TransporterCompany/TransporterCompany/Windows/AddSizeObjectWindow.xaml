@@ -16,6 +16,7 @@
             <TextBlock Text="Название части" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
             <TextBox x:Name="TypeTb" FontSize="30" Width="350" Height="30" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="3"></TextBox>
             <TextBlock Text="Значение" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+            
             <TextBox x:Name="TypTb" FontSize="30" Width="350" Height="30" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="3"></TextBox>
             <TextBlock Text="Тип измерения" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
             <TextBox x:Name="TyeTb" FontSize="30" Width="350" Height="30" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="3"></TextBox>
