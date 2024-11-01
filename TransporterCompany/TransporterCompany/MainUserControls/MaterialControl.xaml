@@ -27,5 +27,11 @@
                 </Grid>
             </Grid>
         </Border>
+        <Rectangle Width="50" Height="50" Fill="MediumVioletRed" VerticalAlignment="Top" HorizontalAlignment="Right"></Rectangle>
+        <TextBlock VerticalAlignment="Top" FontSize="17" HorizontalAlignment="Right" TextAlignment="Center" Width="50" Height="40" Margin="0,5,0,0">
+            <Run x:Name="StorageF" Text="Склад"></Run>
+            <LineBreak></LineBreak>
+            <Run x:Name="StorageS" Text="1"></Run>
+        </TextBlock>
     </Grid>
 </UserControl>

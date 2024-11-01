@@ -17,12 +17,12 @@ using TransporterCompany.MainDataBase;
 namespace TransporterCompany.MainUserControls
 {
     /// <summary>
-    /// Логика взаимодействия для OrderControl.xaml
+    /// Логика взаимодействия для OrderClient.xaml
     /// </summary>
-    public partial class OrderControl : UserControl
+    public partial class OrderClient : UserControl
     {
-        public Order _order;
-        public OrderControl(Order order)
+        Order _order;
+        public OrderClient(Order order)
         {
             InitializeComponent();
             _order = order;
@@ -45,6 +45,15 @@ namespace TransporterCompany.MainUserControls
                 StatusTb2.Text = "Статус не найден";
             }
 
+            if (StatusTb2.Text == "Новый" || StatusTb2.Text == "Отменён" || StatusTb2.Text == "Составление спецификации" || StatusTb2.Text == "Подтверждение")
+            {
+                ReturnBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ReturnBtn.Visibility = Visibility.Hidden;
+            }
+
             NumberTb.Text = _order.Id_Order.ToString();
             DateTb.Text = _order.DateStart.ToString();
             DateTb.Text = _order.DateStart.ToString();
@@ -53,6 +62,12 @@ namespace TransporterCompany.MainUserControls
             ClientTb.Text = _order.Id_Client.ToString();
             DateFinishTb.Text = _order.DateEnd.ToString();
             ManagerTb.Text = _order.Id_Manager.ToString();
+            _order = order;
+        }
+
+        private void ReturnBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)

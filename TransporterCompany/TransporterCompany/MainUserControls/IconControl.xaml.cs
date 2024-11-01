@@ -65,6 +65,12 @@ namespace TransporterCompany.MainUserControls
             {
                 App.iconsPanel.Children.Add(new IconControl(icon));
             }
+
+            foreach (WorkshopIcons workshopIcon in App.transBase.WorkshopIcons)
+            {
+                if (workshopIcon.Id_Icon == _icon.Id_Icon) App.transBase.WorkshopIcons.Remove(workshopIcon);
+            }
+            App.transBase.SaveChanges();    
         }
     }
 }

@@ -12,24 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TransporterCompany.Pages;
 
-namespace TransporterCompany.UserButtons
+namespace TransporterCompany.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для OrderBtn.xaml
+    /// Логика взаимодействия для AddSizeObjectWindow.xaml
     /// </summary>
-    public partial class OrderBtn : UserControl
+    public partial class AddSizeObjectWindow : Page
     {
-        public OrderBtn()
+        public AddSizeObjectWindow()
         {
             InitializeComponent();
-
-        }
-
-        private void OrderButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.menuFrame.Navigate(new OrderPage());
         }
     }
 }

@@ -69,6 +69,7 @@
           <Property Name="Type_Document" Type="nvarchar" MaxLength="50" />
           <Property Name="Name_Document" Type="nvarchar" MaxLength="50" />
           <Property Name="Id_Order" Type="int" Nullable="false" />
+          <Property Name="Doc_Source" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Icons">
           <Key>
@@ -82,7 +83,7 @@
           <Key>
             <PropertyRef Name="Id_Image" />
           </Key>
-          <Property Name="Id_Image" Type="int" Nullable="false" />
+          <Property Name="Id_Image" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name_Image" Type="nvarchar" MaxLength="50" />
           <Property Name="ImageSource" Type="varbinary(max)" />
         </EntityType>
@@ -90,7 +91,7 @@
           <Key>
             <PropertyRef Name="Id_Image" />
           </Key>
-          <Property Name="Id_Image" Type="int" Nullable="false" />
+          <Property Name="Id_Image" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name_Image" Type="nvarchar" MaxLength="50" />
           <Property Name="ImageSource" Type="varbinary(max)" />
         </EntityType>
@@ -146,7 +147,7 @@
           <Property Name="DateEnd" Type="date" />
           <Property Name="Id_Product" Type="int" Nullable="false" />
           <Property Name="Id_Client" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Id_Manager" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_Manager" Type="nvarchar" MaxLength="50" />
           <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="OrderStatus">
@@ -159,7 +160,7 @@
           <Property Name="Time_Change" Type="time" Precision="7" />
           <Property Name="Id_Order" Type="int" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="Id_OldStatus" Type="nchar" MaxLength="10" />
+          <Property Name="Id_OldStatus" Type="int" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -537,7 +538,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_User1">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -709,7 +710,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkshopIcons_Icons">
-          <End Role="Icons" Type="Self.Icons" Multiplicity="0..1" />
+          <End Role="Icons" Type="Self.Icons" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="WorkshopIcons" Type="Self.WorkshopIcons" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Icons">
@@ -946,6 +949,26 @@
           <NavigationProperty Name="Provider" Relationship="Self.FK_Provider_Address" FromRole="Address" ToRole="Provider" />
           <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Address" FromRole="Address" ToRole="Worker" />
         </EntityType>
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="Id_Component" />
+          </Key>
+          <Property Name="Id_Component" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name_Component" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_SizeType" Type="Int32" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Id_Provider" Type="Int32" />
+          <Property Name="Id_Image" Type="Int32" />
+          <Property Name="Id_ComponentType" Type="Int32" />
+          <Property Name="Cost" Type="Double" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="Id_Storage" Type="Int32" />
+          <NavigationProperty Name="ComponentType" Relationship="Self.FK_Component_ComponentType1" FromRole="Component" ToRole="ComponentType" />
+          <NavigationProperty Name="ImageStockComponent" Relationship="Self.FK_Component_ImageStockComponent1" FromRole="Component" ToRole="ImageStockComponent" />
+          <NavigationProperty Name="Provider" Relationship="Self.FK_Component_Provider" FromRole="Component" ToRole="Provider" />
+          <NavigationProperty Name="Storage" Relationship="Self.FK_Component_Storage" FromRole="Component" ToRole="Storage" />
+          <NavigationProperty Name="ComponentProduct" Relationship="Self.FK_ComponentProduct_Component1" FromRole="Component" ToRole="ComponentProduct" />
+        </EntityType>
         <EntityType Name="ComponentProduct">
           <Key>
             <PropertyRef Name="Id_CompProd" />
@@ -954,8 +977,8 @@
           <Property Name="Id_Component" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Id_Product" Type="Int32" />
           <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="Component" Relationship="Self.FK_ComponentProduct_Component1" FromRole="ComponentProduct" ToRole="Component" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ComponentProduct_Product" FromRole="ComponentProduct" ToRole="Product" />
-          <NavigationProperty Name="Component" Relationship="TransporterBaseModel.FK_ComponentProduct_Component1" FromRole="ComponentProduct" ToRole="Component" />
         </EntityType>
         <EntityType Name="ComponentType">
           <Key>
@@ -963,7 +986,7 @@
           </Key>
           <Property Name="Id_ComponentType" Type="Int32" Nullable="false" />
           <Property Name="Name_ComponentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Component" Relationship="TransporterBaseModel.FK_Component_ComponentType1" FromRole="ComponentType" ToRole="Component" />
+          <NavigationProperty Name="Component" Relationship="Self.FK_Component_ComponentType1" FromRole="ComponentType" ToRole="Component" />
         </EntityType>
         <EntityType Name="CreatingProcess">
           <Key>
@@ -976,16 +999,6 @@
           <NavigationProperty Name="Product" Relationship="Self.FK_CreatingProcess_Product" FromRole="CreatingProcess" ToRole="Product" />
           <NavigationProperty Name="Workstation" Relationship="Self.FK_CreatingProcess_Workstation" FromRole="CreatingProcess" ToRole="Workstation" />
           <NavigationProperty Name="WorkerProcess" Relationship="Self.FK_WorkerProcess_CreatingProcess" FromRole="CreatingProcess" ToRole="WorkerProcess" />
-        </EntityType>
-        <EntityType Name="Document">
-          <Key>
-            <PropertyRef Name="Id_Document" />
-          </Key>
-          <Property Name="Id_Document" Type="Int32" Nullable="false" />
-          <Property Name="Type_Document" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name_Document" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Id_Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Document_Order" FromRole="Document" ToRole="Order" />
         </EntityType>
         <EntityType Name="Icons">
           <Key>
@@ -1000,19 +1013,19 @@
           <Key>
             <PropertyRef Name="Id_Image" />
           </Key>
-          <Property Name="Id_Image" Type="Int32" Nullable="false" />
+          <Property Name="Id_Image" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ImageSource" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Component" Relationship="TransporterBaseModel.FK_Component_ImageStockComponent1" FromRole="ImageStockComponent" ToRole="Component" />
+          <NavigationProperty Name="Component" Relationship="Self.FK_Component_ImageStockComponent1" FromRole="ImageStockComponent" ToRole="Component" />
         </EntityType>
         <EntityType Name="ImageStockMaterial">
           <Key>
             <PropertyRef Name="Id_Image" />
           </Key>
-          <Property Name="Id_Image" Type="Int32" Nullable="false" />
+          <Property Name="Id_Image" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name_Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ImageSource" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Material" Relationship="TransporterBaseModel.FK_Material_ImageStockMaterial" FromRole="ImageStockMaterial" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Material_ImageStockMaterial" FromRole="ImageStockMaterial" ToRole="Material" />
         </EntityType>
         <EntityType Name="ImageStockUser">
           <Key>
@@ -1023,6 +1036,30 @@
           <Property Name="ImageSource" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_ImageStockUser" FromRole="ImageStockUser" ToRole="User" />
         </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="Id_Material" />
+          </Key>
+          <Property Name="Id_Material" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name_Material" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_SizeType" Type="Int32" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Id_Provider" Type="Int32" />
+          <Property Name="Id_Image" Type="Int32" />
+          <Property Name="Id_TypeMaterial" Type="Int32" />
+          <Property Name="Cost_Material" Type="Double" />
+          <Property Name="Length_Material" Type="Double" />
+          <Property Name="Mass_Material" Type="Double" />
+          <Property Name="Id_Standart" Type="Int32" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
+          <Property Name="Id_Storage" Type="Int32" />
+          <NavigationProperty Name="ImageStockMaterial" Relationship="Self.FK_Material_ImageStockMaterial" FromRole="Material" ToRole="ImageStockMaterial" />
+          <NavigationProperty Name="MaterialType" Relationship="Self.FK_Material_MaterialType" FromRole="Material" ToRole="MaterialType" />
+          <NavigationProperty Name="SizeType" Relationship="Self.FK_Material_SizeType" FromRole="Material" ToRole="SizeType" />
+          <NavigationProperty Name="Standart" Relationship="Self.FK_Material_Standart" FromRole="Material" ToRole="Standart" />
+          <NavigationProperty Name="Storage" Relationship="Self.FK_Material_Storage" FromRole="Material" ToRole="Storage" />
+          <NavigationProperty Name="MaterialProduct" Relationship="Self.FK_MaterialProduct_Material" FromRole="Material" ToRole="MaterialProduct" />
+        </EntityType>
         <EntityType Name="MaterialProduct">
           <Key>
             <PropertyRef Name="Id_MatProd" />
@@ -1031,8 +1068,8 @@
           <Property Name="Id_Material" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Id_Product" Type="Int32" />
           <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_MaterialProduct_Material" FromRole="MaterialProduct" ToRole="Material" />
           <NavigationProperty Name="Product" Relationship="Self.FK_MaterialProduct_Product" FromRole="MaterialProduct" ToRole="Product" />
-          <NavigationProperty Name="Material" Relationship="TransporterBaseModel.FK_MaterialProduct_Material" FromRole="MaterialProduct" ToRole="Material" />
         </EntityType>
         <EntityType Name="MaterialType">
           <Key>
@@ -1040,7 +1077,7 @@
           </Key>
           <Property Name="Id_MaterialType" Type="Int32" Nullable="false" />
           <Property Name="Name_MaterialType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="TransporterBaseModel.FK_Material_MaterialType" FromRole="MaterialType" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Material_MaterialType" FromRole="MaterialType" ToRole="Material" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -1052,13 +1089,13 @@
           <Property Name="DateEnd" Type="DateTime" Precision="0" />
           <Property Name="Id_Product" Type="Int32" Nullable="false" />
           <Property Name="Id_Client" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Id_Manager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_Manager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Document_Order" FromRole="Order" ToRole="Document" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Order_Product" FromRole="Order" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="Self.FK_Order_User1" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderStatus" Relationship="Self.FK_OrderStatus_Order" FromRole="Order" ToRole="OrderStatus" />
+          <NavigationProperty Name="Document" Relationship="TransporterBaseModel.FK_Document_Order" FromRole="Order" ToRole="Document" />
         </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
@@ -1070,9 +1107,9 @@
           <Property Name="Time_Change" Type="Time" Precision="7" />
           <Property Name="Id_Order" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Id_OldStatus" Type="Int32" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderStatus_Order" FromRole="OrderStatus" ToRole="Order" />
           <NavigationProperty Name="Status" Relationship="Self.FK_OrderStatus_Status" FromRole="OrderStatus" ToRole="Status" />
-          <Property Name="Id_OldStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -1108,7 +1145,7 @@
           <Property Name="DeliveryDate" Type="Int32" />
           <Property Name="Id_Provider" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="Self.FK_Provider_Address" FromRole="Provider" ToRole="Address" />
-          <NavigationProperty Name="Component" Relationship="TransporterBaseModel.FK_Component_Provider" FromRole="Provider" ToRole="Component" />
+          <NavigationProperty Name="Component" Relationship="Self.FK_Component_Provider" FromRole="Provider" ToRole="Component" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1136,8 +1173,8 @@
           </Key>
           <Property Name="Id_SizeType" Type="Int32" Nullable="false" />
           <Property Name="Name_SizeType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Material_SizeType" FromRole="SizeType" ToRole="Material" />
           <NavigationProperty Name="SizeObject" Relationship="Self.FK_SizeObject_SizeType" FromRole="SizeType" ToRole="SizeObject" />
-          <NavigationProperty Name="Material" Relationship="TransporterBaseModel.FK_Material_SizeType" FromRole="SizeType" ToRole="Material" />
         </EntityType>
         <EntityType Name="Standart">
           <Key>
@@ -1146,7 +1183,7 @@
           <Property Name="Id_Standart" Type="Int32" Nullable="false" />
           <Property Name="Name_Standart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description_Standart" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="TransporterBaseModel.FK_Material_Standart" FromRole="Standart" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Material_Standart" FromRole="Standart" ToRole="Material" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1156,6 +1193,15 @@
           <Property Name="Name_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description_Status" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OrderStatus" Relationship="Self.FK_OrderStatus_Status" FromRole="Status" ToRole="OrderStatus" />
+        </EntityType>
+        <EntityType Name="Storage">
+          <Key>
+            <PropertyRef Name="Id_Storage" />
+          </Key>
+          <Property Name="Id_Storage" Type="Int32" Nullable="false" />
+          <Property Name="Name_Storage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Component" Relationship="Self.FK_Component_Storage" FromRole="Storage" ToRole="Component" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Material_Storage" FromRole="Storage" ToRole="Material" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -1285,6 +1331,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Component_ComponentType1">
+          <End Role="ComponentType" Type="Self.ComponentType" Multiplicity="0..1" />
+          <End Role="Component" Type="Self.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComponentType">
+              <PropertyRef Name="Id_ComponentType" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="Id_ComponentType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Component_ImageStockComponent1">
+          <End Role="ImageStockComponent" Type="Self.ImageStockComponent" Multiplicity="0..1" />
+          <End Role="Component" Type="Self.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImageStockComponent">
+              <PropertyRef Name="Id_Image" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="Id_Image" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Component_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="0..1" />
+          <End Role="Component" Type="Self.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="Id_Provider" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="Id_Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Component_Storage">
+          <End Role="Storage" Type="Self.Storage" Multiplicity="0..1" />
+          <End Role="Component" Type="Self.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="Id_Storage" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="Id_Storage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComponentProduct_Component1">
+          <End Role="Component" Type="Self.Component" Multiplicity="0..1" />
+          <End Role="ComponentProduct" Type="Self.ComponentProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="Id_Component" />
+            </Principal>
+            <Dependent Role="ComponentProduct">
+              <PropertyRef Name="Id_Component" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ComponentProduct_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="ComponentProduct" Type="Self.ComponentProduct" Multiplicity="*" />
@@ -1333,20 +1439,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Document_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Id_Order" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="Id_Order" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WorkshopIcons_Icons">
-          <End Role="Icons" Type="Self.Icons" Multiplicity="0..1" />
+          <End Role="Icons" Type="Self.Icons" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="WorkshopIcons" Type="Self.WorkshopIcons" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Icons">
@@ -1354,6 +1450,18 @@
             </Principal>
             <Dependent Role="WorkshopIcons">
               <PropertyRef Name="Id_Icon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_ImageStockMaterial">
+          <End Role="ImageStockMaterial" Type="Self.ImageStockMaterial" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImageStockMaterial">
+              <PropertyRef Name="Id_Image" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="Id_Image" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1366,6 +1474,66 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_MaterialType">
+          <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialType">
+              <PropertyRef Name="Id_MaterialType" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="Id_TypeMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_SizeType">
+          <End Role="SizeType" Type="Self.SizeType" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SizeType">
+              <PropertyRef Name="Id_SizeType" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="Id_SizeType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_Standart">
+          <End Role="Standart" Type="Self.Standart" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Standart">
+              <PropertyRef Name="Id_Standart" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="Id_Standart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_Storage">
+          <End Role="Storage" Type="Self.Storage" Multiplicity="0..1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="Id_Storage" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="Id_Storage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialProduct_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+          <End Role="MaterialProduct" Type="Self.MaterialProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id_Material" />
+            </Principal>
+            <Dependent Role="MaterialProduct">
+              <PropertyRef Name="Id_Material" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1406,7 +1574,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_User1">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -1553,17 +1721,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TransporterBaseEntities8" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TransporterBaseEntities9" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ActiveSession" EntityType="Self.ActiveSession" />
           <EntitySet Name="Address" EntityType="Self.Address" />
+          <EntitySet Name="Component" EntityType="Self.Component" />
           <EntitySet Name="ComponentProduct" EntityType="Self.ComponentProduct" />
           <EntitySet Name="ComponentType" EntityType="Self.ComponentType" />
           <EntitySet Name="CreatingProcess" EntityType="Self.CreatingProcess" />
-          <EntitySet Name="Document" EntityType="Self.Document" />
           <EntitySet Name="Icons" EntityType="Self.Icons" />
           <EntitySet Name="ImageStockComponent" EntityType="Self.ImageStockComponent" />
           <EntitySet Name="ImageStockMaterial" EntityType="Self.ImageStockMaterial" />
           <EntitySet Name="ImageStockUser" EntityType="Self.ImageStockUser" />
+          <EntitySet Name="Material" EntityType="Self.Material" />
           <EntitySet Name="MaterialProduct" EntityType="Self.MaterialProduct" />
           <EntitySet Name="MaterialType" EntityType="Self.MaterialType" />
           <EntitySet Name="Order" EntityType="Self.Order" />
@@ -1576,6 +1745,7 @@
           <EntitySet Name="SizeType" EntityType="Self.SizeType" />
           <EntitySet Name="Standart" EntityType="Self.Standart" />
           <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Storage" EntityType="Self.Storage" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TypeWorkstation" EntityType="Self.TypeWorkstation" />
           <EntitySet Name="User" EntityType="Self.User" />
@@ -1596,6 +1766,26 @@
             <End Role="Address" EntitySet="Address" />
             <End Role="Worker" EntitySet="Worker" />
           </AssociationSet>
+          <AssociationSet Name="FK_Component_ComponentType1" Association="Self.FK_Component_ComponentType1">
+            <End Role="ComponentType" EntitySet="ComponentType" />
+            <End Role="Component" EntitySet="Component" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Component_ImageStockComponent1" Association="Self.FK_Component_ImageStockComponent1">
+            <End Role="ImageStockComponent" EntitySet="ImageStockComponent" />
+            <End Role="Component" EntitySet="Component" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Component_Provider" Association="Self.FK_Component_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="Component" EntitySet="Component" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Component_Storage" Association="Self.FK_Component_Storage">
+            <End Role="Storage" EntitySet="Storage" />
+            <End Role="Component" EntitySet="Component" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComponentProduct_Component1" Association="Self.FK_ComponentProduct_Component1">
+            <End Role="Component" EntitySet="Component" />
+            <End Role="ComponentProduct" EntitySet="ComponentProduct" />
+          </AssociationSet>
           <AssociationSet Name="FK_ComponentProduct_Product" Association="Self.FK_ComponentProduct_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="ComponentProduct" EntitySet="ComponentProduct" />
@@ -1612,17 +1802,37 @@
             <End Role="CreatingProcess" EntitySet="CreatingProcess" />
             <End Role="WorkerProcess" EntitySet="WorkerProcess" />
           </AssociationSet>
-          <AssociationSet Name="FK_Document_Order" Association="Self.FK_Document_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="Document" EntitySet="Document" />
-          </AssociationSet>
           <AssociationSet Name="FK_WorkshopIcons_Icons" Association="Self.FK_WorkshopIcons_Icons">
             <End Role="Icons" EntitySet="Icons" />
             <End Role="WorkshopIcons" EntitySet="WorkshopIcons" />
           </AssociationSet>
+          <AssociationSet Name="FK_Material_ImageStockMaterial" Association="Self.FK_Material_ImageStockMaterial">
+            <End Role="ImageStockMaterial" EntitySet="ImageStockMaterial" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_ImageStockUser" Association="Self.FK_User_ImageStockUser">
             <End Role="ImageStockUser" EntitySet="ImageStockUser" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_MaterialType" Association="Self.FK_Material_MaterialType">
+            <End Role="MaterialType" EntitySet="MaterialType" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_SizeType" Association="Self.FK_Material_SizeType">
+            <End Role="SizeType" EntitySet="SizeType" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_Standart" Association="Self.FK_Material_Standart">
+            <End Role="Standart" EntitySet="Standart" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_Storage" Association="Self.FK_Material_Storage">
+            <End Role="Storage" EntitySet="Storage" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialProduct_Material" Association="Self.FK_MaterialProduct_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialProduct" EntitySet="MaterialProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_MaterialProduct_Product" Association="Self.FK_MaterialProduct_Product">
             <End Role="Product" EntitySet="Product" />
@@ -1684,236 +1894,32 @@
             <End Role="Workshop" EntitySet="Workshop" />
             <End Role="WorkshopIcons" EntitySet="WorkshopIcons" />
           </AssociationSet>
-          <EntitySet Name="Storage" EntityType="TransporterBaseModel.Storage" />
-          <EntitySet Name="Component" EntityType="TransporterBaseModel.Component" />
-          <AssociationSet Name="FK_Component_ComponentType1" Association="TransporterBaseModel.FK_Component_ComponentType1">
-            <End Role="ComponentType" EntitySet="ComponentType" />
-            <End Role="Component" EntitySet="Component" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Component_ImageStockComponent1" Association="TransporterBaseModel.FK_Component_ImageStockComponent1">
-            <End Role="ImageStockComponent" EntitySet="ImageStockComponent" />
-            <End Role="Component" EntitySet="Component" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Component_Provider" Association="TransporterBaseModel.FK_Component_Provider">
-            <End Role="Provider" EntitySet="Provider" />
-            <End Role="Component" EntitySet="Component" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Component_Storage" Association="TransporterBaseModel.FK_Component_Storage">
-            <End Role="Storage" EntitySet="Storage" />
-            <End Role="Component" EntitySet="Component" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ComponentProduct_Component1" Association="TransporterBaseModel.FK_ComponentProduct_Component1">
-            <End Role="Component" EntitySet="Component" />
-            <End Role="ComponentProduct" EntitySet="ComponentProduct" />
-          </AssociationSet>
-          <EntitySet Name="Material" EntityType="TransporterBaseModel.Material" />
-          <AssociationSet Name="FK_Material_ImageStockMaterial" Association="TransporterBaseModel.FK_Material_ImageStockMaterial">
-            <End Role="ImageStockMaterial" EntitySet="ImageStockMaterial" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_MaterialType" Association="TransporterBaseModel.FK_Material_MaterialType">
-            <End Role="MaterialType" EntitySet="MaterialType" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_SizeType" Association="TransporterBaseModel.FK_Material_SizeType">
-            <End Role="SizeType" EntitySet="SizeType" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_Standart" Association="TransporterBaseModel.FK_Material_Standart">
-            <End Role="Standart" EntitySet="Standart" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_Storage" Association="TransporterBaseModel.FK_Material_Storage">
-            <End Role="Storage" EntitySet="Storage" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MaterialProduct_Material" Association="TransporterBaseModel.FK_MaterialProduct_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="MaterialProduct" EntitySet="MaterialProduct" />
+          <EntitySet Name="Document" EntityType="TransporterBaseModel.Document" />
+          <AssociationSet Name="FK_Document_Order" Association="TransporterBaseModel.FK_Document_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Document" EntitySet="Document" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Storage">
+        <EntityType Name="Document">
           <Key>
-            <PropertyRef Name="Id_Storage" />
+            <PropertyRef Name="Id_Document" />
           </Key>
-          <Property Name="Id_Storage" Type="Int32" Nullable="false" />
-          <Property Name="Name_Storage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Component" Relationship="TransporterBaseModel.FK_Component_Storage" FromRole="Storage" ToRole="Component" />
-          <NavigationProperty Name="Material" Relationship="TransporterBaseModel.FK_Material_Storage" FromRole="Storage" ToRole="Material" />
+          <Property Name="Id_Document" Type="Int32" Nullable="false" />
+          <Property Name="Type_Document" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Document" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Order" Type="Int32" Nullable="false" />
+          <Property Name="Doc_Source" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Order" Relationship="TransporterBaseModel.FK_Document_Order" FromRole="Document" ToRole="Order" />
         </EntityType>
-        <EntityType Name="Component">
-          <Key>
-            <PropertyRef Name="Id_Component" />
-          </Key>
-          <Property Name="Id_Component" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name_Component" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Id_SizeType" Type="Int32" />
-          <Property Name="Count" Type="Int32" />
-          <Property Name="Id_Provider" Type="Int32" />
-          <Property Name="Id_Image" Type="Int32" />
-          <Property Name="Id_ComponentType" Type="Int32" />
-          <Property Name="Cost" Type="Double" />
-          <Property Name="Weight" Type="Int32" />
-          <Property Name="Id_Storage" Type="Int32" />
-          <NavigationProperty Name="ComponentType" Relationship="TransporterBaseModel.FK_Component_ComponentType1" FromRole="Component" ToRole="ComponentType" />
-          <NavigationProperty Name="ImageStockComponent" Relationship="TransporterBaseModel.FK_Component_ImageStockComponent1" FromRole="Component" ToRole="ImageStockComponent" />
-          <NavigationProperty Name="Provider" Relationship="TransporterBaseModel.FK_Component_Provider" FromRole="Component" ToRole="Provider" />
-          <NavigationProperty Name="Storage" Relationship="TransporterBaseModel.FK_Component_Storage" FromRole="Component" ToRole="Storage" />
-          <NavigationProperty Name="ComponentProduct" Relationship="TransporterBaseModel.FK_ComponentProduct_Component1" FromRole="Component" ToRole="ComponentProduct" />
-        </EntityType>
-        <Association Name="FK_Component_ComponentType1">
-          <End Type="TransporterBaseModel.ComponentType" Role="ComponentType" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Component" Role="Component" Multiplicity="*" />
+        <Association Name="FK_Document_Order">
+          <End Type="TransporterBaseModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="TransporterBaseModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ComponentType">
-              <PropertyRef Name="Id_ComponentType" />
+            <Principal Role="Order">
+              <PropertyRef Name="Id_Order" />
             </Principal>
-            <Dependent Role="Component">
-              <PropertyRef Name="Id_ComponentType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Component_ImageStockComponent1">
-          <End Type="TransporterBaseModel.ImageStockComponent" Role="ImageStockComponent" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Component" Role="Component" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImageStockComponent">
-              <PropertyRef Name="Id_Image" />
-            </Principal>
-            <Dependent Role="Component">
-              <PropertyRef Name="Id_Image" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Component_Provider">
-          <End Type="TransporterBaseModel.Provider" Role="Provider" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Component" Role="Component" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provider">
-              <PropertyRef Name="Id_Provider" />
-            </Principal>
-            <Dependent Role="Component">
-              <PropertyRef Name="Id_Provider" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Component_Storage">
-          <End Type="TransporterBaseModel.Storage" Role="Storage" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Component" Role="Component" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Storage">
-              <PropertyRef Name="Id_Storage" />
-            </Principal>
-            <Dependent Role="Component">
-              <PropertyRef Name="Id_Storage" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ComponentProduct_Component1">
-          <End Type="TransporterBaseModel.Component" Role="Component" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.ComponentProduct" Role="ComponentProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Component">
-              <PropertyRef Name="Id_Component" />
-            </Principal>
-            <Dependent Role="ComponentProduct">
-              <PropertyRef Name="Id_Component" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Material">
-          <Key>
-            <PropertyRef Name="Id_Material" />
-          </Key>
-          <Property Name="Id_Material" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name_Material" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Id_SizeType" Type="Int32" />
-          <Property Name="Count" Type="Int32" />
-          <Property Name="Id_Provider" Type="Int32" />
-          <Property Name="Id_Image" Type="Int32" />
-          <Property Name="Id_TypeMaterial" Type="Int32" />
-          <Property Name="Cost_Material" Type="Double" />
-          <Property Name="Length_Material" Type="Double" />
-          <Property Name="Mass_Material" Type="Double" />
-          <Property Name="Id_Standart" Type="Int32" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
-          <Property Name="Id_Storage" Type="Int32" />
-          <NavigationProperty Name="ImageStockMaterial" Relationship="TransporterBaseModel.FK_Material_ImageStockMaterial" FromRole="Material" ToRole="ImageStockMaterial" />
-          <NavigationProperty Name="MaterialType" Relationship="TransporterBaseModel.FK_Material_MaterialType" FromRole="Material" ToRole="MaterialType" />
-          <NavigationProperty Name="SizeType" Relationship="TransporterBaseModel.FK_Material_SizeType" FromRole="Material" ToRole="SizeType" />
-          <NavigationProperty Name="Standart" Relationship="TransporterBaseModel.FK_Material_Standart" FromRole="Material" ToRole="Standart" />
-          <NavigationProperty Name="Storage" Relationship="TransporterBaseModel.FK_Material_Storage" FromRole="Material" ToRole="Storage" />
-          <NavigationProperty Name="MaterialProduct" Relationship="TransporterBaseModel.FK_MaterialProduct_Material" FromRole="Material" ToRole="MaterialProduct" />
-        </EntityType>
-        <Association Name="FK_Material_ImageStockMaterial">
-          <End Type="TransporterBaseModel.ImageStockMaterial" Role="ImageStockMaterial" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Material" Role="Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImageStockMaterial">
-              <PropertyRef Name="Id_Image" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="Id_Image" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_MaterialType">
-          <End Type="TransporterBaseModel.MaterialType" Role="MaterialType" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Material" Role="Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialType">
-              <PropertyRef Name="Id_MaterialType" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="Id_TypeMaterial" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_SizeType">
-          <End Type="TransporterBaseModel.SizeType" Role="SizeType" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Material" Role="Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SizeType">
-              <PropertyRef Name="Id_SizeType" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="Id_SizeType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_Standart">
-          <End Type="TransporterBaseModel.Standart" Role="Standart" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Material" Role="Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Standart">
-              <PropertyRef Name="Id_Standart" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="Id_Standart" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_Storage">
-          <End Type="TransporterBaseModel.Storage" Role="Storage" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.Material" Role="Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Storage">
-              <PropertyRef Name="Id_Storage" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="Id_Storage" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MaterialProduct_Material">
-          <End Type="TransporterBaseModel.Material" Role="Material" Multiplicity="0..1" />
-          <End Type="TransporterBaseModel.MaterialProduct" Role="MaterialProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="Id_Material" />
-            </Principal>
-            <Dependent Role="MaterialProduct">
-              <PropertyRef Name="Id_Material" />
+            <Dependent Role="Document">
+              <PropertyRef Name="Id_Order" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1922,7 +1928,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TransporterBaseModelContainer" CdmEntityContainer="TransporterBaseEntities8">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TransporterBaseModelContainer" CdmEntityContainer="TransporterBaseEntities9">
           <EntitySetMapping Name="ActiveSession">
             <EntityTypeMapping TypeName="TransporterBaseModel.ActiveSession">
               <MappingFragment StoreEntitySet="ActiveSession">
@@ -1938,6 +1944,22 @@
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Component">
+            <EntityTypeMapping TypeName="TransporterBaseModel.Component">
+              <MappingFragment StoreEntitySet="Component">
+                <ScalarProperty Name="Id_Component" ColumnName="Id_Component" />
+                <ScalarProperty Name="Name_Component" ColumnName="Name_Component" />
+                <ScalarProperty Name="Id_SizeType" ColumnName="Id_SizeType" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Id_Provider" ColumnName="Id_Provider" />
+                <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
+                <ScalarProperty Name="Id_ComponentType" ColumnName="Id_ComponentType" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Id_Storage" ColumnName="Id_Storage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1966,16 +1988,6 @@
                 <ScalarProperty Name="Id_Product" ColumnName="Id_Product" />
                 <ScalarProperty Name="Process_Name" ColumnName="Process_Name" />
                 <ScalarProperty Name="Id_Workstation" ColumnName="Id_Workstation" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Document">
-            <EntityTypeMapping TypeName="TransporterBaseModel.Document">
-              <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="Id_Document" ColumnName="Id_Document" />
-                <ScalarProperty Name="Type_Document" ColumnName="Type_Document" />
-                <ScalarProperty Name="Name_Document" ColumnName="Name_Document" />
-                <ScalarProperty Name="Id_Order" ColumnName="Id_Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2015,6 +2027,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="TransporterBaseModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="Id_Material" ColumnName="Id_Material" />
+                <ScalarProperty Name="Name_Material" ColumnName="Name_Material" />
+                <ScalarProperty Name="Id_SizeType" ColumnName="Id_SizeType" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Id_Provider" ColumnName="Id_Provider" />
+                <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
+                <ScalarProperty Name="Id_TypeMaterial" ColumnName="Id_TypeMaterial" />
+                <ScalarProperty Name="Cost_Material" ColumnName="Cost_Material" />
+                <ScalarProperty Name="Length_Material" ColumnName="Length_Material" />
+                <ScalarProperty Name="Mass_Material" ColumnName="Mass_Material" />
+                <ScalarProperty Name="Id_Standart" ColumnName="Id_Standart" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="Id_Storage" ColumnName="Id_Storage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MaterialProduct">
             <EntityTypeMapping TypeName="TransporterBaseModel.MaterialProduct">
               <MappingFragment StoreEntitySet="MaterialProduct">
@@ -2050,13 +2081,13 @@
           <EntitySetMapping Name="OrderStatus">
             <EntityTypeMapping TypeName="TransporterBaseModel.OrderStatus">
               <MappingFragment StoreEntitySet="OrderStatus">
-                <ScalarProperty Name="Id_OldStatus" ColumnName="Id_OldStatus" />
                 <ScalarProperty Name="Id_OrderStatus" ColumnName="Id_OrderStatus" />
                 <ScalarProperty Name="Id_Status" ColumnName="Id_Status" />
                 <ScalarProperty Name="Date_Change" ColumnName="Date_Change" />
                 <ScalarProperty Name="Time_Change" ColumnName="Time_Change" />
                 <ScalarProperty Name="Id_Order" ColumnName="Id_Order" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id_OldStatus" ColumnName="Id_OldStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2129,6 +2160,14 @@
                 <ScalarProperty Name="Id_Status" ColumnName="Id_Status" />
                 <ScalarProperty Name="Name_Status" ColumnName="Name_Status" />
                 <ScalarProperty Name="Description_Status" ColumnName="Description_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Storage">
+            <EntityTypeMapping TypeName="TransporterBaseModel.Storage">
+              <MappingFragment StoreEntitySet="Storage">
+                <ScalarProperty Name="Id_Storage" ColumnName="Id_Storage" />
+                <ScalarProperty Name="Name_Storage" ColumnName="Name_Storage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2215,46 +2254,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Storage">
-            <EntityTypeMapping TypeName="TransporterBaseModel.Storage">
-              <MappingFragment StoreEntitySet="Storage">
-                <ScalarProperty Name="Name_Storage" ColumnName="Name_Storage" />
-                <ScalarProperty Name="Id_Storage" ColumnName="Id_Storage" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Component">
-            <EntityTypeMapping TypeName="TransporterBaseModel.Component">
-              <MappingFragment StoreEntitySet="Component">
-                <ScalarProperty Name="Id_Storage" ColumnName="Id_Storage" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Id_ComponentType" ColumnName="Id_ComponentType" />
-                <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
-                <ScalarProperty Name="Id_Provider" ColumnName="Id_Provider" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="Id_SizeType" ColumnName="Id_SizeType" />
-                <ScalarProperty Name="Name_Component" ColumnName="Name_Component" />
-                <ScalarProperty Name="Id_Component" ColumnName="Id_Component" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Material">
-            <EntityTypeMapping TypeName="TransporterBaseModel.Material">
-              <MappingFragment StoreEntitySet="Material">
-                <ScalarProperty Name="Id_Storage" ColumnName="Id_Storage" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="Id_Standart" ColumnName="Id_Standart" />
-                <ScalarProperty Name="Mass_Material" ColumnName="Mass_Material" />
-                <ScalarProperty Name="Length_Material" ColumnName="Length_Material" />
-                <ScalarProperty Name="Cost_Material" ColumnName="Cost_Material" />
-                <ScalarProperty Name="Id_TypeMaterial" ColumnName="Id_TypeMaterial" />
-                <ScalarProperty Name="Id_Image" ColumnName="Id_Image" />
-                <ScalarProperty Name="Id_Provider" ColumnName="Id_Provider" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="Id_SizeType" ColumnName="Id_SizeType" />
-                <ScalarProperty Name="Name_Material" ColumnName="Name_Material" />
-                <ScalarProperty Name="Id_Material" ColumnName="Id_Material" />
+          <EntitySetMapping Name="Document">
+            <EntityTypeMapping TypeName="TransporterBaseModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="Doc_Source" ColumnName="Doc_Source" />
+                <ScalarProperty Name="Id_Order" ColumnName="Id_Order" />
+                <ScalarProperty Name="Name_Document" ColumnName="Name_Document" />
+                <ScalarProperty Name="Type_Document" ColumnName="Type_Document" />
+                <ScalarProperty Name="Id_Document" ColumnName="Id_Document" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

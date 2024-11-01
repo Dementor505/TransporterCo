@@ -1,0 +1,21 @@
+﻿<Window x:Class="TransporterCompany.Windows.DeclayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TransporterCompany.Windows"
+        mc:Ignorable="d"
+        Title="DeclayWindow" Height="300" Width="400" WindowStyle="None">
+    <Grid>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="ПРИЧИНА ОТКАЗА" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"></TextBlock>
+            <TextBox x:Name="declayWords" FontSize="30" Width="350" Height="150" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="3"></TextBox>
+            <Button Margin="0,10,0,0" x:Name="NextBtn" Width="120" Height="70" Background="Transparent" BorderThickness="0" Click="NextBtn_Click">
+                <Grid>
+                    <Image Source="/Resources/NextBtn.png"></Image>
+                    <TextBlock Text = "ПОДТВЕРДИТЬ" FontSize="20" FontWeight="Bold" Foreground="DarkRed" HorizontalAlignment="Center" Margin="0,8,0,0"></TextBlock>
+                </Grid>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

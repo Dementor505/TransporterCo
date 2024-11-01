@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="TransporterCompany.MainUserControls.SizeObjectControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TransporterCompany.MainUserControls"
+             d:DesignHeight="120" d:DesignWidth="120" MouseLeftButtonDown="UserControl_MouseLeftButtonDown" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
+    <Grid Height="100" Width="100" Margin="10">
+        <Grid>
+            <Image Source="/Resources/SizeObjectWall.png"></Image>
+            <TextBlock x:Name="IdSizeObject" Text="TEST" HorizontalAlignment="Center" Margin="0,10,0,0"></TextBlock>
+            <TextBlock x:Name="NameProduct" Text="TEST" HorizontalAlignment="Center" Margin="0,25,0,0"></TextBlock>
+            <TextBlock x:Name="NameSizeObject" Text="TEST" HorizontalAlignment="Center" Margin="0,40,0,0"></TextBlock>
+            <TextBlock x:Name="NameSizeType" Text="TEST" HorizontalAlignment="Center" Margin="0,55,0,0"></TextBlock>
+            <TextBlock x:Name="ValueSizeType" Text="TEST" HorizontalAlignment="Center" Margin="0,70,0,0"></TextBlock>
+        </Grid>
+        <Image x:Name="ImageDoc" Source="/Resources/NoPhotoNew.png" Stretch="Fill" Width="100" Height="100" Visibility="Hidden"></Image>
+    </Grid>
+</UserControl>

@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TransporterCompany.MainDataBase;
+using TransporterCompany.MainUserControls;
 using TransporterCompany.Pages;
 
 namespace TransporterCompany.Pages
@@ -26,6 +27,8 @@ namespace TransporterCompany.Pages
     public partial class AddEditMaterial : Page
     {
         Material _material;
+        byte[] currentNewImage;
+        bool itsAdded;
         public AddEditMaterial(Material material)
         {
             InitializeComponent();
@@ -33,33 +36,43 @@ namespace TransporterCompany.Pages
 
             DataContext = material;
 
+            if (material.Id_Material == null) itsAdded = true;
+            else itsAdded = false;
+
             TypeMaterialCb.ItemsSource = App.transBase.MaterialType.Select(x => x.Name_MaterialType).ToList();
-            TypeMaterialCb.SelectedItem = App.transBase.MaterialType.FirstOrDefault(x => x.Id_MaterialType == material.Id_TypeMaterial).Name_MaterialType;
-
             StandartCb.ItemsSource = App.transBase.Standart.Select(x => x.Name_Standart).ToList();
-            StandartCb.SelectedItem = App.transBase.Standart.FirstOrDefault(x => x.Id_Standart == material.Id_Standart).Name_Standart;
-
             ProviderCb.ItemsSource = App.transBase.Provider.Select(x => x.Name_Provider).ToList();
-            ProviderCb.SelectedItem = App.transBase.Provider.FirstOrDefault(x => x.Id_Provider == material.Id_Provider).Name_Provider;
-
             UnitTypeCb.ItemsSource = App.transBase.SizeType.Select(x => x.Name_SizeType).ToList();
-            UnitTypeCb.SelectedItem = App.transBase.SizeType.FirstOrDefault(x => x.Id_SizeType == material.Id_SizeType).Name_SizeType;
-
-            DeliveryDateDp.SelectedDate = material.DeliveryDate;
-
             StorageCb.ItemsSource = App.transBase.Storage.Select(x => x.Name_Storage).ToList();
-            StorageCb.SelectedItem = App.transBase.Storage.FirstOrDefault(x => x.Id_Storage == material.Id_Storage).Name_Storage;
-
-            materialImage.Source = GetImage(material.ImageStockMaterial.ImageSource);
-
-
-            if (float.TryParse(CostTb.Text, out float result))
+            if (material.Id_Material != null)
             {
-                CostTb.Text = result.ToString();
+                TypeMaterialCb.SelectedItem = App.transBase.MaterialType.FirstOrDefault(x => x.Id_MaterialType == material.Id_TypeMaterial).Name_MaterialType;
+
+                StandartCb.SelectedItem = App.transBase.Standart.FirstOrDefault(x => x.Id_Standart == material.Id_Standart).Name_Standart;
+
+                ProviderCb.SelectedItem = App.transBase.Provider.FirstOrDefault(x => x.Id_Provider == material.Id_Provider).Name_Provider;
+
+                UnitTypeCb.SelectedItem = App.transBase.SizeType.FirstOrDefault(x => x.Id_SizeType == material.Id_SizeType).Name_SizeType;
+
+                DeliveryDateDp.SelectedDate = material.DeliveryDate;
+
+                StorageCb.SelectedItem = App.transBase.Storage.FirstOrDefault(x => x.Id_Storage == material.Id_Storage).Name_Storage;
+
+                materialImage.Source = GetImage(material.ImageStockMaterial.ImageSource);
+
+
+                if (float.TryParse(CostTb.Text, out float result))
+                {
+                    CostTb.Text = result.ToString();
+                }
+                else
+                {
+                    CostTb.Text = material.Cost_Material.ToString();
+                }
             }
             else
             {
-                CostTb.Text = material.Cost_Material.ToString();
+                NumberTb.IsReadOnly = false;
             }
         }
         public BitmapImage GetImage(byte[] byteImage)
@@ -92,6 +105,7 @@ namespace TransporterCompany.Pages
             {
                 currentImage = System.IO.File.ReadAllBytes(openFile.FileName);
                 materialImage.Source = GetImage(currentImage);
+                currentNewImage = currentImage;
             }
         }
 
@@ -107,16 +121,40 @@ namespace TransporterCompany.Pages
                 CostTb.Text != "" && LengthTb.Text != "" && MassTb.Text != "" && StandartCb.SelectedItem != null &&
                 DeliveryDateDp.SelectedDate != null && StorageCb.SelectedItem != null)
             {
-                if (_material == null)
+                if (itsAdded == true)
                 {
-                    Material newMaterial = new Material()
+                    if (App.transBase.Material.FirstOrDefault(x => x.Id_Material == NumberTb.Text) == null)
                     {
-                        Name_Material = NameTb.Text,
-                        Id_SizeType = App.transBase.SizeType.FirstOrDefault(x => x.Name_SizeType == UnitTypeCb.SelectedItem.ToString()).Id_SizeType,
-                        Count = Convert.ToInt32(CountTb.Text)
-                    };
-                    App.transBase.Material.Add(newMaterial);
-
+                        ImageStockMaterial imageStockMaterial = new ImageStockMaterial()
+                        {
+                            ImageSource = currentNewImage,
+                        };
+                        App.transBase.ImageStockMaterial.Add(imageStockMaterial);
+                        App.transBase.SaveChanges();
+                        Material newMaterial = new Material()
+                        {
+                            Id_Material = NumberTb.Text,
+                            Name_Material = NameTb.Text,
+                            Id_SizeType = App.transBase.SizeType.FirstOrDefault(x => x.Name_SizeType == UnitTypeCb.SelectedItem.ToString()).Id_SizeType,
+                            Count = Convert.ToInt32(CountTb.Text),
+                            Id_Provider = App.transBase.Provider.FirstOrDefault(x => x.Name_Provider == ProviderCb.SelectedItem.ToString()).Id_Provider,
+                            Id_Image = imageStockMaterial.Id_Image,
+                            Id_TypeMaterial = App.transBase.MaterialType.FirstOrDefault(x => x.Name_MaterialType == TypeMaterialCb.SelectedItem.ToString()).Id_MaterialType,
+                            Cost_Material = Convert.ToDouble(CostTb.Text),
+                            Length_Material = Convert.ToDouble(LengthTb.Text),
+                            Mass_Material = Convert.ToDouble(MassTb.Text),
+                            Id_Standart = App.transBase.Standart.FirstOrDefault(x => x.Name_Standart == StandartCb.SelectedItem.ToString()).Id_Standart,
+                            DeliveryDate = DeliveryDateDp.SelectedDate,
+                            Id_Storage = App.transBase.Storage.FirstOrDefault(x => x.Name_Storage == StorageCb.SelectedItem.ToString()).Id_Storage,
+                        };
+                        App.transBase.Material.Add(newMaterial);
+                        App.transBase.SaveChanges();
+                        //MessageBox.Show("Сохранено");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Материал с таким номером уже есть");
+                    }
                 }
                 else
                 {
@@ -137,31 +175,17 @@ namespace TransporterCompany.Pages
                     _material.DeliveryDate = DeliveryDateDp.SelectedDate;
                     _material.Id_Storage = App.transBase.Storage.FirstOrDefault(x => x.Name_Storage == StorageCb.SelectedItem.ToString()).Id_Storage;
                     App.transBase.SaveChanges();
-                    App.menuFrame.Navigate(new MaterialPage());
                 }
             }
-        }
-        public static byte[] ImageToByteArray(Image image)
-        {
-            // Получаем BitmapSource из Image.Source
-            BitmapSource bitmapSource = image.Source as BitmapSource;
-
-            if (bitmapSource == null)
+            else
             {
-                throw new ArgumentException("Image.Source is not a BitmapSource");
+                MessageBox.Show("Ты не всё запомнил");
             }
-
-            // Создаем объект JpegBitmapEncoder для кодирования изображения в JPEG формат
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-
-            // Создаем MemoryStream для хранения байтов
-            using (MemoryStream ms = new MemoryStream())
+            foreach (var material in App.transBase.Material)
             {
-                // Сохраняем изображение в MemoryStream
-                encoder.Save(ms);
-                return ms.ToArray();
+                App.materialPanel.Children.Add(new MaterialControl(material));
             }
+            App.menuFrame.Navigate(new MaterialPage());
         }
     }
 }

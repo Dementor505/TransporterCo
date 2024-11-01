@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="TransporterCompany.MainUserControls.DocsControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TransporterCompany.MainUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="120" d:DesignWidth="120" DragEnter="UserControl_DragEnter" DragLeave="UserControl_DragLeave" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+    <Grid Height="100" Width="100" Margin="10">
+        <Image x:Name="ImageDoc" Source="/Resources/NoPhotoNew.png" Stretch="Fill" Width="100" Height="100"></Image>
+    </Grid>
+</UserControl>

@@ -17,33 +17,40 @@ using TransporterCompany.MainDataBase;
 namespace TransporterCompany.MainUserControls
 {
     /// <summary>
-    /// Логика взаимодействия для OrderControl.xaml
+    /// Логика взаимодействия для OrderDirector.xaml
     /// </summary>
-    public partial class OrderControl : UserControl
+    public partial class OrderDirector : UserControl
     {
-        public Order _order;
-        public OrderControl(Order order)
+        Order _order;
+        public OrderDirector(Order order)
         {
             InitializeComponent();
+
             _order = order;
 
 
-            OrderStatus statusOrder = App.transBase.OrderStatus.FirstOrDefault(so => so.Order.Id_Order == _order.Id_Order);
+            OrderStatus statusOrder = App.transBase.OrderStatus.OrderByDescending(x => x.Date_Change).FirstOrDefault(so => so.Order.Id_Order == _order.Id_Order);
             if (statusOrder?.Status != null)
             {
-                // Получаем Status по идентификатору StatusOrder
                 Status status = App.transBase.Status.FirstOrDefault(s => s.Id_Status == statusOrder.Status.Id_Status);
 
-                // Устанавливаем текст статуса, если Status найден
-                //StatusTb.Text = status?.Name_Status ?? "Статус не найден";
                 StatusTb2.Text = status?.Name_Status ?? "Статус не найден";
             }
             else
             {
-                // Устанавливаем текст статуса, если OrderStatus или Status не найдены
-                //StatusTb.Text = "Статус не найден";
                 StatusTb2.Text = "Статус не найден";
             }
+
+            //if (order.Id_Manager != null)
+            //{
+            //    AddMyBtn.Visibility = Visibility.Hidden;
+            //    ReturnBtn.Visibility = Visibility.Hidden;
+            //}
+            //if (statusOrder.Id_Status == 2)
+            //{
+            //    ReturnBtn.Visibility = Visibility.Hidden;
+            //    AddMyBtn.Visibility = Visibility.Hidden;
+            //}
 
             NumberTb.Text = _order.Id_Order.ToString();
             DateTb.Text = _order.DateStart.ToString();
@@ -52,31 +59,19 @@ namespace TransporterCompany.MainUserControls
             CostTb.Text = _order.Cost.ToString();
             ClientTb.Text = _order.Id_Client.ToString();
             DateFinishTb.Text = _order.DateEnd.ToString();
-            ManagerTb.Text = _order.Id_Manager.ToString();
+            if (_order.Id_Manager != null) ManagerTb.Text = _order.Id_Manager.ToString();
+            _order = order;
+            _order = order;
         }
 
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
-            FirstLayer.Visibility = Visibility.Hidden;
-            SecondLayer.Visibility = Visibility.Visible;
+
         }
 
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
-            FirstLayer.Visibility = Visibility.Visible;
-            SecondLayer.Visibility = Visibility.Hidden;
-        }
 
-        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (App.loggedUser.Id_Role == 1 && StatusTb2.Text == "Новый")
-            {
-                MessageBox.Show("Удалён");
-            }
-            else
-            {
-                MessageBox.Show("Удалять можно только новые заказы");
-            }
         }
     }
 }

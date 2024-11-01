@@ -38,6 +38,16 @@ namespace TransporterCompany.Pages
             storageNames.Insert(0, "Все склады");
             StorageCb.ItemsSource = storageNames;
             StorageCb.SelectedIndex = 0;
+            Refresh();
+
+            if (App.loggedUser.Id_Role == 2 || App.loggedUser.Id_Role == 3)
+            {
+                PlusBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PlusBtn.Visibility = Visibility.Hidden;
+            }
         }
         public void Refresh()
         {
@@ -45,12 +55,22 @@ namespace TransporterCompany.Pages
 
             List<Material> materialList = App.transBase.Material.ToList();
 
-            if(StorageCb.SelectedItem.ToString() != "Всё склады") materialList = materialList.Where(x => x.Id_Storage == StorageCb.SelectedIndex+1).ToList();
+            if (StorageCb.SelectedIndex != 0) materialList = materialList.Where(x => x.Id_Storage == StorageCb.SelectedIndex).ToList();
+            else materialList = App.transBase.Material.ToList();
 
             foreach (var material in materialList)
             {
                 materialWp.Children.Add(new MaterialControl(material));
             }
+
+            DataResultTb.Text = materialList.Count.ToString() + "/ИЗ/" + App.transBase.Material.Count();
+
+            double sum = 0;
+            foreach (var material in materialList)
+            {
+                sum += Convert.ToDouble(material.Cost_Material);
+            }
+            DataSumTb.Text = sum.ToString() + ".р";
         }
 
         private void StorageCb_SelectionChanged(object sender, SelectionChangedEventArgs e)

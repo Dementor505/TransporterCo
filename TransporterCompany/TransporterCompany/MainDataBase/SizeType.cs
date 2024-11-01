@@ -17,16 +17,16 @@ namespace TransporterCompany.MainDataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SizeType()
         {
-            this.SizeObject = new HashSet<SizeObject>();
             this.Material = new HashSet<Material>();
+            this.SizeObject = new HashSet<SizeObject>();
         }
     
         public int Id_SizeType { get; set; }
         public string Name_SizeType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SizeObject> SizeObject { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Material> Material { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SizeObject> SizeObject { get; set; }
     }
 }

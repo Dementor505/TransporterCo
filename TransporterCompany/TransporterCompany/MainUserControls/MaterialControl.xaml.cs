@@ -41,6 +41,7 @@ namespace TransporterCompany.MainUserControls
             UnitTb.Text = "Ед-изм " + material.SizeType.Name_SizeType;
             DateTb.Text = material.DeliveryDate.ToString();
             costTb.Text = material.Cost_Material.ToString() + ".р";
+            StorageS.Text = material.Id_Storage.ToString();
 
         }
         public BitmapImage GetImage(byte[] byteImage)
@@ -72,12 +73,16 @@ namespace TransporterCompany.MainUserControls
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ChoiseMaterial choiseMaterial = new ChoiseMaterial(_material);
-            Point cursorPosition = Mouse.GetPosition(this);
-            Point screenPosition = this.PointToScreen(cursorPosition);
-            choiseMaterial.Left = screenPosition.X - choiseMaterial.Width / 2;
-            choiseMaterial.Top = screenPosition.Y - choiseMaterial.Height / 2;
-            if (!choiseMaterial.IsLoaded) choiseMaterial.Show();
+            if (App.loggedUser.Id_Role == 2 || App.loggedUser.Id_Role == 3)
+            {
+                //MessageBox.Show("click");
+                ChoiseMaterial choiseMaterial = new ChoiseMaterial(_material);
+                Point cursorPosition = Mouse.GetPosition(this);
+                Point screenPosition = this.PointToScreen(cursorPosition);
+                choiseMaterial.Left = screenPosition.X - choiseMaterial.Width / 2;
+                choiseMaterial.Top = screenPosition.Y - choiseMaterial.Height / 2;
+                if (!choiseMaterial.IsLoaded) choiseMaterial.Show();
+            }
         }
     }
 }

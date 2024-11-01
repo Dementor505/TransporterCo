@@ -20,7 +20,7 @@ namespace TransporterCompany.MainDataBase
         public Nullable<System.TimeSpan> Time_Change { get; set; }
         public Nullable<int> Id_Order { get; set; }
         public string Description { get; set; }
-        public string Id_OldStatus { get; set; }
+        public Nullable<int> Id_OldStatus { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Status Status { get; set; }

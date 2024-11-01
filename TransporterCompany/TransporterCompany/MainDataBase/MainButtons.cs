@@ -11,14 +11,23 @@ namespace TransporterCompany.MainDataBase
     public class MainButtons
     {
         UserControl[] simpleUser = new UserControl[] { new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
+            new OrderBtn(),
         new EmptyField()};
 
         UserControl[] directorUser = new UserControl[] {new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
             new WorkerBtn(), new MaterialsBtn(), new ComponentsBtn(), new PlanBtn(), new IconsBtn(),new OrderBtn(),
         new EmptyField()};
 
-        UserControl[] workerUser = new UserControl[] { new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
-            new MaterialsBtn(), new ComponentsBtn(),
+        UserControl[] managerUser = new UserControl[] { new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
+            new MaterialsBtn(), new ComponentsBtn(), new OrderBtn(),
+        new EmptyField()};
+
+        UserControl[] constructorUser = new UserControl[] { new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
+            new MaterialsBtn(), new ComponentsBtn(), new OrderBtn(),
+        new EmptyField()};
+
+        UserControl[] masterUser = new UserControl[] { new EmptyField2(), new ExitAccountBtn(), new ProfileBtn(),
+            new MaterialsBtn(), new ComponentsBtn(), new OrderBtn(),
         new EmptyField()};
 
         public WrapPanel mainWrapPanel;
@@ -47,19 +56,19 @@ namespace TransporterCompany.MainDataBase
                         }
                         break;
                     case 3:
-                        foreach (var button in workerUser)
+                        foreach (var button in managerUser)
                         {
                             mainWrapPanel.Children.Add(button);
                         }
                         break;
                     case 4:
-                        foreach (var button in workerUser)
+                        foreach (var button in constructorUser)
                         {
                             mainWrapPanel.Children.Add(button);
                         }
                         break;
                     case 5:
-                        foreach (var button in workerUser)
+                        foreach (var button in masterUser)
                         {
                             mainWrapPanel.Children.Add(button);
                         }

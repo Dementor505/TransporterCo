@@ -10,26 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TransporterCompany.Pages;
 
-namespace TransporterCompany.UserButtons
+namespace TransporterCompany.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для OrderBtn.xaml
+    /// Логика взаимодействия для DeclayWindow.xaml
     /// </summary>
-    public partial class OrderBtn : UserControl
+    public partial class DeclayWindow : Window
     {
-        public OrderBtn()
+        public DeclayWindow()
         {
             InitializeComponent();
-
         }
 
-        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
-            App.menuFrame.Navigate(new OrderPage());
+            App.declayText = declayWords.Text;
+            this.Close();
         }
     }
 }

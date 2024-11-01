@@ -18,6 +18,7 @@ namespace TransporterCompany.MainDataBase
         public string Type_Document { get; set; }
         public string Name_Document { get; set; }
         public int Id_Order { get; set; }
+        public byte[] Doc_Source { get; set; }
     
         public virtual Order Order { get; set; }
     }

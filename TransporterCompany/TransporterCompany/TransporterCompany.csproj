@@ -185,14 +185,29 @@
     <Compile Include="MainUserControls\ComponentControl.xaml.cs">
       <DependentUpon>ComponentControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainUserControls\DocsControls.xaml.cs">
+      <DependentUpon>DocsControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainUserControls\IconControl.xaml.cs">
       <DependentUpon>IconControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainUserControls\MaterialControl.xaml.cs">
       <DependentUpon>MaterialControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainUserControls\OrderClient.xaml.cs">
+      <DependentUpon>OrderClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainUserControls\OrderControl.xaml.cs">
       <DependentUpon>OrderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\OrderDirector.xaml.cs">
+      <DependentUpon>OrderDirector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\OrderManager.xaml.cs">
+      <DependentUpon>OrderManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\SizeObjectControl.xaml.cs">
+      <DependentUpon>SizeObjectControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainUserControls\WorkerControl.xaml.cs">
       <DependentUpon>WorkerControl.xaml</DependentUpon>
@@ -202,6 +217,9 @@
     </Compile>
     <Compile Include="Pages\AddEditMaterial.xaml.cs">
       <DependentUpon>AddEditMaterial.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddEditOrder.xaml.cs">
+      <DependentUpon>AddEditOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddEditWorker.xaml.cs">
       <DependentUpon>AddEditWorker.xaml</DependentUpon>
@@ -272,11 +290,20 @@
     <Compile Include="UserButtons\WorkerBtn.xaml.cs">
       <DependentUpon>WorkerBtn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AddDocsWindow.xaml.cs">
+      <DependentUpon>AddDocsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddSizeObjectWindow.xaml.cs">
+      <DependentUpon>AddSizeObjectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ChoiseMaterial.xaml.cs">
       <DependentUpon>ChoiseMaterial.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ChoiseWorker.xaml.cs">
       <DependentUpon>ChoiseWorker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DeclayWindow.xaml.cs">
+      <DependentUpon>DeclayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SkillsInfo.xaml.cs">
       <DependentUpon>SkillsInfo.xaml</DependentUpon>
@@ -288,6 +315,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainUserControls\DocsControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainUserControls\IconControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -296,7 +327,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainUserControls\OrderClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainUserControls\OrderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainUserControls\OrderDirector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainUserControls\OrderManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainUserControls\SizeObjectControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -321,6 +368,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AddEditMaterial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddEditOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -436,11 +487,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\AddDocsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddSizeObjectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ChoiseMaterial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ChoiseWorker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DeclayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -612,6 +675,10 @@
     <Resource Include="Resources\DeleteBtn.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\AddMyBtn.png" />
+    <Resource Include="Resources\ReturnBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="MainDataBase\TransporterBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TransporterBase.edmx</DependentUpon>
@@ -622,6 +689,10 @@
       <DependentUpon>TransporterBase.edmx</DependentUpon>
       <LastGenOutput>TransporterBase.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\SizeObjectWall.png" />
+    <Resource Include="Resources\SizeObject.png" />
+    <Resource Include="Resources\Docs.png" />
+    <Resource Include="Resources\Imgs.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

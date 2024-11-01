@@ -12,24 +12,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TransporterCompany.Pages;
 
-namespace TransporterCompany.UserButtons
+namespace TransporterCompany.MainUserControls
 {
     /// <summary>
-    /// Логика взаимодействия для OrderBtn.xaml
+    /// Логика взаимодействия для SizeObjectControl.xaml
     /// </summary>
-    public partial class OrderBtn : UserControl
+    public partial class SizeObjectControl : UserControl
     {
-        public OrderBtn()
+        public SizeObjectControl()
         {
             InitializeComponent();
-
         }
 
-        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
-            App.menuFrame.Navigate(new OrderPage());
+            ImageDoc.Visibility = Visibility.Hidden;
+        }
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageDoc.Visibility= Visibility.Visible;
         }
     }
 }

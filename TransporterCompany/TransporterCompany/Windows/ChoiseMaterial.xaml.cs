@@ -23,6 +23,7 @@ namespace TransporterCompany.Windows
     public partial class ChoiseMaterial : Window
     {
         Material _material;
+        bool isDelete = false;
         public ChoiseMaterial(Material material)
         {
             InitializeComponent();
@@ -36,18 +37,31 @@ namespace TransporterCompany.Windows
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            App.transBase.Material.Remove(_material);
-            App.transBase.SaveChanges();
-            App.materialPanel.Children.Clear();
-            foreach (var material in App.transBase.Material)
+            isDelete = true;
+            MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
             {
-                App.materialPanel.Children.Add(new MaterialControl(material));
+                App.transBase.Material.Remove(_material);
+                App.transBase.SaveChanges();
+                App.materialPanel.Children.Clear();
+                foreach (var material in App.transBase.Material)
+                {
+                    App.materialPanel.Children.Add(new MaterialControl(material));
+                }
+                isDelete = false;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ну как знаешь =)");
+                isDelete = false;
+                this.Close();
             }
         }
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            this.Close();
+            if (isDelete == false) this.Close();
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
